@@ -31,7 +31,7 @@ public class CherenkovHit {
         this.index = index;
     }
     
-    public int pindex() {
+    public int getpindex() {
         return pindex;
     }
     
@@ -39,97 +39,97 @@ public class CherenkovHit {
         this.pindex = pindex;
     }
     
-    public int detector() {
+    public int getdetector() {
         return detector;
     }
     
-    public void detector(int detector) {
+    public void setdetector(int detector) {
         this.detector = detector;
     }
         
-    public int sector() {
+    public int getsector() {
         return sector;
     }
     
-    public void sector(int sector) {
+    public void setsector(int sector) {
         this.sector = sector;
     }
     
-    public float nphe() {
+    public float getnphe() {
         return nphe;
     }
     
-    public void nphe(float nphe) {
+    public void setnphe(float nphe) {
         this.nphe = nphe;
     }
     
-    public float time() {
+    public float gettime() {
         return time;
     }
     
-    public void time(float time) {
+    public void settime(float time) {
         this.time = time;
     } 
     
-    public float path() {
+    public float getpath() {
         return path; 
     }
-    public void path(float path) {
+    public void setpath(float path) {
         this.path = path;
     } 
-    public float chi2() {
+    public float getchi2() {
         return chi2; 
     }
-    public void chi2(float chi2) {
+    public void setchi2(float chi2) {
         this.chi2 = chi2;
     } 
     
-    public float x() {
+    public float getx() {
         return x; 
     }
-    public void x(float x) {
+    public void setx(float x) {
         this.x = x;
     } 
-    public float y() {
+    public float gety() {
         return y; 
     }
    
-    public void y(float y) {
+    public void sety(float y) {
         this.y = y;
     }
 
-    public float z() {
+    public float getz() {
         return z; 
     }
-    public void z(float z) {
+    public void setz(float z) {
         this.z = z;
     }
         
-    public float theta() {
+    public float gettheta() {
         return theta; 
     }
-    public void theta(float theta) {
+    public void settheta(float theta) {
         this.theta = theta;
     }
 
-    public float dtheta() {
+    public float getdtheta() {
         return dtheta; 
     }
-    public void dtheta(float dtheta) {
+    public void setdtheta(float dtheta) {
         this.dtheta = dtheta;
     }
         
-        public float dphi() {
+        public float getdphi() {
         return dphi; 
     }
-    public void dphi(float dphi) {
+    public void setdphi(float dphi) {
         this.dphi = dphi;
     }
-    public int status() {
+    public int getstatus() {
         return status;
     }
     
-    public void status(int status) {
+    public void setstatus(int status) {
         this.status = status;
     }
        
