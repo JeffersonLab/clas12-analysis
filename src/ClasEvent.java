@@ -6,7 +6,12 @@ public class ClasEvent {
 	ArrayList<ClasParticle> particles;
 	double beamEnergy;
 	int targetType;
-	
+        float sttime; 
+        float rftime;
+        float bcg;
+        long trig; 
+        
+        
 	public long getEventNumber() {
 		return eventNumber;
 	}
