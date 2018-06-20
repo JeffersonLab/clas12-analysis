@@ -1,3 +1,12 @@
+/*
+ * Bank: REC::Clas Particle 
+ * info: Clas Particle responses for particle bank
+ * Will Phelps (JLAB), June 20, 2018 
+ */
+
+
+
+
 import org.jlab.clas.physics.Vector3;
 
 public class ClasParticle {

@@ -1,3 +1,9 @@
+/*
+ * Bank: REC::Cherenkov
+ * info: Cherenkov responses for particle bank
+ * Noraim Nunez (CSUDH), June 20, 2018 
+ */
+
 import java.util.ArrayList;
 
 public class ClasEvent {
