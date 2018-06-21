@@ -3,7 +3,9 @@ public class Pi0Analyzer extends ClasAnalyzer {
 
 	public static void main(String[] args) {
 		Pi0Analyzer analyzer = new Pi0Analyzer();
-		analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo").setHipoOutputFile("/Users/wphelps/Desktop/rga/phys/phys_3105_twogamma.hipo").processEvents();
+		analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo");
+		analyzer.setHipoOutputFile("/Users/wphelps/Desktop/rga/phys/phys_3105_twogamma.hipo");
+		analyzer.processEvents();
 	}
 
 	@Override
