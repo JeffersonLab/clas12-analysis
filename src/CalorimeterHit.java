@@ -4,7 +4,7 @@
  * Noraim Nunez (CSUDH), June 20, 2018 
  */
 
-public class Calorimeter {
+public class CalorimeterHit {
 
     int index;  //#16 Index of the hit in the specific detector bank
     int pindex; //#16 Row number in the particle bank hit is associated with
