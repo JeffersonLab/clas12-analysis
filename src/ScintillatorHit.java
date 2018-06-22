@@ -15,13 +15,13 @@ public class ScintillatorHit extends DetectorHit {
 
 
 
-    public float getlayer() {
+    public int getlayer() {
         return layer;
     } 
     public void setlayer(int layer) {
         this.layer = layer;
     }
-        public float getcomponent() {
+        public int getcomponent() {
         return component;
     } 
     public void setcomponent(int component) {
