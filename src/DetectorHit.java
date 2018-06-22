@@ -5,14 +5,14 @@ public class DetectorHit {
 	private int detector;// #8 Detector ID,defined in COATJAVA DetectorType
 	private int sector; // #8 Sector of the Detector hit
 	private int layer; // #8 Layer of the Detector hit
-	private float energy; // Energy associated with the hit (GeV)
 	private float time; // Time associated with the hit (ns)
 	private float path; // Path from vertex to the hit position (cm)
 	private float chi2; // Quality of hit-track matching
 	private float x; // X coordinate of the hit (cm)
 	private float y; // Y coordinate of the hit (cm)
 	private float z; // Z coordinate of the hit (cm)
-	
+    private int status; //Hit status 
+
 	public int getIndex() {
 		return index;
 	}
@@ -43,12 +43,7 @@ public class DetectorHit {
 	public void setLayer(int layer) {
 		this.layer = layer;
 	}
-	public float getEnergy() {
-		return energy;
-	}
-	public void setEnergy(float energy) {
-		this.energy = energy;
-	}
+	
 	public float getTime() {
 		return time;
 	}
@@ -84,5 +79,11 @@ public class DetectorHit {
 	}
 	public void setZ(float z) {
 		this.z = z;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }
