@@ -7,13 +7,13 @@
 import org.jlab.clas.physics.Vector3;
 
 public class ClasParticle {
-	Vector3 momentum;
-	Vector3 vertex;
-	int pid;
-	int charge;
-	float chi2pid;
-	float beta; 
-        int status;
+	private Vector3 momentum;
+	private Vector3 vertex;
+	private int pid;
+	private int charge;
+	private float chi2pid;
+	private float beta; 
+        private int status;
 	
 	
 	public Vector3 getMomentum() {
