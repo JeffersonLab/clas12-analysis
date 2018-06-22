@@ -22,6 +22,14 @@ public class CalorimeterHit extends DetectorHit {
 	float m3v; // 3rd moment of the shower on V-side
 	float m3w; // 3rd moment of the shower on W-side
 
+	public float getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(float energy) {
+		this.energy = energy;
+	}
+
 	public float gethx() {
 		return hx;
 	}
