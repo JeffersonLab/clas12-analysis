@@ -4,16 +4,15 @@
  * Noraim Nunez (CSUDH), June 20, 2018 
  */
 
-public class ScintillatorHit {
+public class ScintillatorHit extends DetectorHit {
     
-    
-    int layer;  //#8 Layer of the Detector hit 
-    int component; //Component of the Detector hit 
-    float energy; //Energy associated with the hit (GeV)
-    float hx; //X coordinate of the matched hit (cm)
-    float hy; //Y coordinate of the matched hit (cm)
-    float hz; //Z coordinate of the matched hit (cm)
-    int status; //Hit status
+   private int layer;  //#8 Layer of the Detector hit 
+   private int component; //Component of the Detector hit 
+   private float energy; //Energy associated with the hit (GeV)
+   private float hx; //X coordinate of the matched hit (cm)
+   private float hy; //Y coordinate of the matched hit (cm)
+   private float hz; //Z coordinate of the matched hit (cm)
+
 
 
     public float getlayer() {
@@ -52,11 +51,5 @@ public class ScintillatorHit {
     }
     public void sethz(float hz) {
         this.hz = hz;
-    }
-    public int getstatus() {
-        return status;
-    }
-    public void setstatus(int status) {
-        this.status = status;
     }
 }
