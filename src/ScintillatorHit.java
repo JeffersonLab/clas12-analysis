@@ -4,7 +4,7 @@
  * Noraim Nunez (CSUDH), June 20, 2018 
  */
 
-public class Scintillator {
+public class ScintillatorHit {
     
     
     int layer;  //#8 Layer of the Detector hit 
