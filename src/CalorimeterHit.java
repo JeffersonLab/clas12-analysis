@@ -3,17 +3,11 @@
  * info: Calorimeter responses for particle bank 
  * Noraim Nunez (CSUDH), June 20, 2018 
  */
-
-<<<<<<< HEAD:src/Calorimeter.java
-public class Calorimeter {
-
     
-=======
 public class CalorimeterHit extends DetectorHit{
     float hx; //X coordinate of the matched hit (cm)
     float hy; //Y coordinate of the matched hit (cm)
     float hz; //Z coordinate of the matched hit (cm)
->>>>>>> d3c5be19812a240b79ee6754d445719afcd90089:src/CalorimeterHit.java
     float lu; //Distance on U-side
     float lv; //Distance on V-side
     float lw; //Distance on W-side 
@@ -28,9 +22,7 @@ public class CalorimeterHit extends DetectorHit{
     float m3w; //3rd moment of the shower on W-side
     int status; //Hit status 
 
-<<<<<<< HEAD:src/Calorimeter.java
     
-=======
     public float gethx() {
         return hx; 
     }
@@ -49,7 +41,6 @@ public class CalorimeterHit extends DetectorHit{
     public void sethz(float hz) {
         this.hz = hz;
     } 
->>>>>>> d3c5be19812a240b79ee6754d445719afcd90089:src/CalorimeterHit.java
     public float getlu() {
         return lu; 
     }
