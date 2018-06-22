@@ -12,8 +12,9 @@ public class ClasParticle {
 	int pid;
 	int charge;
 	float chi2pid;
-	int status;
-	float beta;
+	float beta; 
+        int status;
+	
 	
 	public Vector3 getMomentum() {
 		return momentum;
