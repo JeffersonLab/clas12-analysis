@@ -6,21 +6,21 @@
 
 public class CalorimeterHit extends DetectorHit {
 	private float energy; // Energy associated with the hit (GeV)
-	float hx; // X coordinate of the matched hit (cm)
-	float hy; // Y coordinate of the matched hit (cm)
-	float hz; // Z coordinate of the matched hit (cm)
-	float lu; // Distance on U-side
-	float lv; // Distance on V-side
-	float lw; // Distance on W-side
-	float du; // Shower width on U-side
-	float dv; // Shower width on V-side
-	float dw; // Shower width on W-side
-	float m2u; // 2nd moment of the shower on U-side
-	float m2v; // 2nd moment of the shower on V-side
-	float m2w; // 3rd moment of the shower on W-side
-	float m3u; // 3rd moment of the shower on U-side
-	float m3v; // 3rd moment of the shower on V-side
-	float m3w; // 3rd moment of the shower on W-side
+	private float hx; // X coordinate of the matched hit (cm)
+	private float hy; // Y coordinate of the matched hit (cm)
+	private float hz; // Z coordinate of the matched hit (cm)
+	private float lu; // Distance on U-side
+	private float lv; // Distance on V-side
+	private float lw; // Distance on W-side
+	private float du; // Shower width on U-side
+	private float dv; // Shower width on V-side
+	private float dw; // Shower width on W-side
+	private float m2u; // 2nd moment of the shower on U-side
+	private float m2v; // 2nd moment of the shower on V-side
+	private float m2w; // 3rd moment of the shower on W-side
+	private float m3u; // 3rd moment of the shower on U-side
+	private float m3v; // 3rd moment of the shower on V-side
+	private float m3w; // 3rd moment of the shower on W-side
 
 	public float getEnergy() {
 		return energy;
