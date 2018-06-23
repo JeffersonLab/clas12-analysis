@@ -9,7 +9,7 @@ public class CovMat {
     private int index; 
     private int pindex;
     //
-   
+       
     //covariance matrix element at last superlayer used in the fit
     private float C11;
     private float C12;
@@ -162,5 +162,6 @@ public class CovMat {
     public void setC55(float C55) {
         this.C55 = C55;
     }
+}
 
     

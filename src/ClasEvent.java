@@ -15,36 +15,6 @@ public class ClasEvent {
 	float bcg;
 	long trig;
 
-	public ClasEvent(HipoEvent hipoEvent) {
-		HipoGroup bank = hipoEvent.getGroup("REC::Event"); 
-		runNumber = bank.getNode("NRUN").getInt()[0];
-		eventNumber = bank.getNode("NEVENT").getInt()[0];
-	    HipoGroup partBank = hipoEvent.getGroup("REC::Particle");
-	    for(int i = 0; i<partBank.getNode("pid").getDataSize(); i++) {
-	    		ClasParticle particle = new ClasParticle();
-	    		particle.setPid(partBank.getNode("pid").getInt(i));
-	    		particle.setCharge((int)partBank.getNode("charge").getByte(i));
-	    		particle.setBeta(partBank.getNode("beta").getFloat(i));
-	    		particle.setChi2pid(partBank.getNode("chi2pid").getFloat(i));
-	    		particle.setStatus(partBank.getNode("status").getShort(i));
-	    		
-	    		double vx = partBank.getNode("vx").getFloat(i);
-	    		double vy = partBank.getNode("vy").getFloat(i);
-	    		double vz = partBank.getNode("vz").getFloat(i);
-	    		
-	    		double px = partBank.getNode("px").getFloat(i);
-	    		double py = partBank.getNode("py").getFloat(i);
-	    		double pz = partBank.getNode("pz").getFloat(i);
-
-	    		particle.setMomentum(new Vector3(px,py,pz));
-	    		particle.setVertex(new Vector3(vx,vy,vz));
-
-	    		particles.add(particle);
-
-	    }
-
-	}
-
 	public long getEventNumber() {
 		return eventNumber;
 	}
