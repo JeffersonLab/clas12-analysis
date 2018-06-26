@@ -6,13 +6,12 @@
 public class ParticleTrack { 
   
 //same to particle trajectory   
-    private int index; // 
-    private int pindex; // 
-    private int detector;// 
-    private int sector; // 
-    private float chi2; //
-    private int status; //
-//
+    private int index; 
+    private int pindex;  
+    private int detector; 
+    private int sector;  
+    private float chi2; 
+    private int status; 
     
     private int q; //charge of the track
     private int NDF; //# of degrees of freedom in track fitting

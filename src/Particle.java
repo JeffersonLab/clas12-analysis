@@ -5,11 +5,11 @@
  */
 public class Particle {
     
-    private int pid;
-    private float px;
+    private int pid;//particle id in LUND conventions
+    private float px; //component of the momentum (GeV)
     private float py;
     private float pz;
-    private float vx;
+    private float vx;//component of the vertex (cm)
     private float vy;
     private float vz;
     private int charge;
