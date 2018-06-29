@@ -7,8 +7,19 @@ public class ClasEventBuilder {
 
 	public static void buildEvent(HipoEvent hipoEvent, ClasEvent event) {
 		HipoGroup bank = hipoEvent.getGroup("REC::Event");
-		event.setRunNumber(bank.getNode("NRUN").getInt()[0]);
-		event.setEventNumber(bank.getNode("NEVENT").getInt()[0]);
+		event.setRunNumber(bank.getNode("NRUN").getInt(0));
+		event.setEventNumber(bank.getNode("NEVENT").getInt(0));
+		event.setEventTime(bank.getNode("EVNTime").getFloat(0));
+		event.setType((int) bank.getNode("TYPE").getByte(0));
+		event.setEventCategory( bank.getNode("EvCAT").getShort(0));
+		event.setNPGP(bank.getNode("NPGP").getShort(0));
+		event.setTRG(bank.getNode("TRG").getLong(0));
+		event.setBcg(bank.getNode("BCG").getFloat(0));
+		event.setClock(bank.getNode("LT").getDouble(0));
+		event.setStartTime(bank.getNode("STTime").getFloat(0));
+		event.setRFTime(bank.getNode("RFTime").getFloat(0));
+		event.setHelicity((int) bank.getNode("Helic").getByte(0));
+		event.setProcessingTime(bank.getNode("PTIME").getFloat(0));
 
 		if (hipoEvent.hasGroup("REC::Particle")) {
 			HipoGroup partBank = hipoEvent.getGroup("REC::Particle");
@@ -16,6 +27,7 @@ public class ClasEventBuilder {
 				ClasParticle particle = new ClasParticle();
 				particle.setPid(partBank.getNode("pid").getInt(i));
 				particle.setCharge((int) partBank.getNode("charge").getByte(i));
+				//System.out.println("Pid:"+particle.getPid()+" Charge:"+particle.getCharge()+" Charge bytes:"+partBank.getNode("charge").getByte(i));
 				particle.setBeta(partBank.getNode("beta").getFloat(i));
 				particle.setChi2pid(partBank.getNode("chi2pid").getFloat(i));
 				particle.setStatus(partBank.getNode("status").getShort(i));
@@ -51,6 +63,7 @@ public class ClasEventBuilder {
 				hit.setTime(cherenkovBank.getNode("time").getFloat(i));
 				hit.setPath(cherenkovBank.getNode("path").getFloat(i));
 				hit.setNphe((float) cherenkovBank.getNode("nphe").getShort(i));
+			//	hit.setNphe(cherenkovBank.getNode("nphe").getFloat(i));
 				hit.setX(cherenkovBank.getNode("x").getFloat(i));
 				hit.setY(cherenkovBank.getNode("y").getFloat(i));
 				hit.setZ(cherenkovBank.getNode("z").getFloat(i));
@@ -124,6 +137,31 @@ public class ClasEventBuilder {
 				event.getParticles().get(hit.getPindex()).getHits().put(DetectorType.getType(hit.getDetector()), hit);
 			}
 		}
-
+		
+/*
+		if (hipoEvent.hasGroup("REC::ForwardTagger")) {
+			HipoGroup forwardTaggerBank = hipoEvent.getGroup("REC::Scintillator");
+			for (int i = 0; i < forwardTaggerBank.getNode("pindex").getDataSize(); i++) {
+				ForwardTaggerHit hit = new ForwardTaggerHit();
+				hit.setIndex(forwardTaggerBank.getNode("index").getShort(i));
+				hit.setPindex(forwardTaggerBank.getNode("pindex").getShort(i));
+				hit.setDetector(forwardTaggerBank.getNode("detector").getByte(i));
+				hit.setSector(0);//oops. Need to remove from Detectorhit
+				hit.setEnergy(forwardTaggerBank.getNode("energy").getFloat(i));
+				hit.setTime(forwardTaggerBank.getNode("time").getFloat(i));
+				hit.setPath(forwardTaggerBank.getNode("path").getFloat(i));
+				hit.setChi2(forwardTaggerBank.getNode("chi2").getFloat(i));
+				hit.setX(forwardTaggerBank.getNode("x").getFloat(i));
+				hit.setY(forwardTaggerBank.getNode("y").getFloat(i));
+				hit.setZ(forwardTaggerBank.getNode("z").getFloat(i));
+				hit.setDx(forwardTaggerBank.getNode("dx").getFloat(i));
+				hit.setDy(forwardTaggerBank.getNode("dy").getFloat(i));
+				hit.setRadius(forwardTaggerBank.getNode("radius").getFloat(i));
+				hit.setSize(forwardTaggerBank.getNode("size").getFloat(i));
+				hit.setStatus(forwardTaggerBank.getNode("status").getShort(i));
+				event.getParticles().get(hit.getPindex()).getHits().put(DetectorType.getType(hit.getDetector()), hit);
+			}
+		}
+*/
 	}
 }
