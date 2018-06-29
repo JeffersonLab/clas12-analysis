@@ -62,8 +62,8 @@ public class ClasEventBuilder {
 				hit.setSector(cherenkovBank.getNode("sector").getByte(i));
 				hit.setTime(cherenkovBank.getNode("time").getFloat(i));
 				hit.setPath(cherenkovBank.getNode("path").getFloat(i));
-				hit.setNphe((float) cherenkovBank.getNode("nphe").getShort(i));
-			//	hit.setNphe(cherenkovBank.getNode("nphe").getFloat(i));
+				//hit.setNphe((float) cherenkovBank.getNode("nphe").getShort(i));
+			    hit.setNphe(cherenkovBank.getNode("nphe").getFloat(i));
 				hit.setX(cherenkovBank.getNode("x").getFloat(i));
 				hit.setY(cherenkovBank.getNode("y").getFloat(i));
 				hit.setZ(cherenkovBank.getNode("z").getFloat(i));
