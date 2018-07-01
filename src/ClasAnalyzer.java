@@ -37,8 +37,9 @@ public class ClasAnalyzer {
 		int nEventsTotal = reader.getEventCount();
 		while(reader.hasNext()==true){
 			HipoEvent hipoEvent = reader.readNextEvent();
-			  if(hipoEvent.hasGroup("REC::Particle")==true){
-				  ClasEvent event = new ClasEvent(hipoEvent);
+			  if(hipoEvent.hasGroup("REC::Particle")){
+				  ClasEvent event = new ClasEvent();
+				  ClasEventBuilder.buildEvent(hipoEvent, event);
 				  if(processEvent(event)&&writeHipoSkim) writer.writeEvent(hipoEvent);
 				  eventNumber++;
 				  if(eventNumber%100000==0) System.out.printf("Percent Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);

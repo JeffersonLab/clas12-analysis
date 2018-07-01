@@ -5,6 +5,7 @@
  */
 
 public class CalorimeterHit extends DetectorHit {
+	private int layer; // #8 Layer of the Detector hit
 	private float energy; // Energy associated with the hit (GeV)
 	private float hx; // X coordinate of the matched hit (cm)
 	private float hy; // Y coordinate of the matched hit (cm)
@@ -22,6 +23,14 @@ public class CalorimeterHit extends DetectorHit {
 	private float m3v; // 3rd moment of the shower on V-side
 	private float m3w; // 3rd moment of the shower on W-side
 
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
+
 	public float getEnergy() {
 		return energy;
 	}
@@ -30,119 +39,124 @@ public class CalorimeterHit extends DetectorHit {
 		this.energy = energy;
 	}
 
-	public float gethx() {
+	public float getHx() {
 		return hx;
 	}
 
-	public void sethx(float hx) {
+	public void setHx(float hx) {
 		this.hx = hx;
 	}
 
-	public float gethy() {
+	public float getHy() {
 		return hy;
 	}
 
-	public void sethy(float hy) {
+	public void setHy(float hy) {
 		this.hy = hy;
 	}
 
-	public float gethz() {
+	public float getHz() {
 		return hz;
 	}
 
-	public void sethz(float hz) {
+	public void setHz(float hz) {
 		this.hz = hz;
 	}
 
-	public float getlu() {
+	public float getLu() {
 		return lu;
 	}
 
-	public void setlu(float lu) {
+	public void setLu(float lu) {
 		this.lu = lu;
 	}
 
-	public float getlv() {
+	public float getLv() {
 		return lv;
 	}
 
-	public void setlv(float lv) {
+	public void setLv(float lv) {
 		this.lv = lv;
 	}
 
-	public float getlw() {
+	public float getLw() {
 		return lw;
 	}
 
-	public void setlw(float lw) {
+	public void setLw(float lw) {
 		this.lw = lw;
 	}
 
-	public float getdu() {
-		return lu;
+	public float getDu() {
+		return du;
 	}
 
-	public void setdu(float du) {
+	public void setDu(float du) {
 		this.du = du;
 	}
 
-	public float getdv() {
+	public float getDv() {
 		return dv;
 	}
 
-	public void setdv(float dv) {
+	public void setDv(float dv) {
 		this.dv = dv;
 	}
 
-	public float getdw() {
+	public float getDw() {
 		return dw;
 	}
 
-	public void setdw(float dw) {
+	public void setDw(float dw) {
 		this.dw = dw;
 	}
 
-	public void getm2u(float m2u) {
-		this.m2u = m2u;
-	}
-
-	public float setm2u() {
+	public float getM2u() {
 		return m2u;
 	}
 
-	public void getm2v(float m2v) {
-		this.m2v = m2v;
+	public void setM2u(float m2u) {
+		this.m2u = m2u;
 	}
 
-	public float setm2v() {
+	public float getM2v() {
 		return m2v;
 	}
 
-	public void getm2w(float m2w) {
+	public void setM2v(float m2v) {
+		this.m2v = m2v;
+	}
+
+	public float getM2w() {
+		return m2w;
+	}
+
+	public void setM2w(float m2w) {
 		this.m2w = m2w;
 	}
 
-	public void getm3u(float m3u) {
-		this.m3u = m3u;
-	}
-
-	public float setm3u() {
+	public float getM3u() {
 		return m3u;
 	}
 
-	public void getm3v(float m3v) {
-		this.m3v = m3v;
+	public void setM3u(float m3u) {
+		this.m3u = m3u;
 	}
 
-	public float setm3v() {
+	public float getM3v() {
 		return m3v;
 	}
 
-	public void getm3w(float m3w) {
+	public void setM3v(float m3v) {
+		this.m3v = m3v;
+	}
+
+	public float getM3w() {
+		return m3w;
+	}
+
+	public void setM3w(float m3w) {
 		this.m3w = m3w;
 	}
 
-	public float setm3w() {
-		return m3w;
-	}
 }

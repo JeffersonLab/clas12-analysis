@@ -104,5 +104,6 @@ public class Particle {
     public void setStatus(int status) {
         this.status = status;
     }
+}
 
     
