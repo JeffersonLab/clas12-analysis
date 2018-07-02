@@ -5,6 +5,8 @@ import org.jlab.jnp.hipo.data.HipoGroup;
 
 public class ClasEventBuilder {
 
+    private static ParticleTrajectory CovMat;
+
 	public static void buildEvent(HipoEvent hipoEvent, ClasEvent event) {
 		HipoGroup bank = hipoEvent.getGroup("REC::Event");
 		event.setRunNumber(bank.getNode("NRUN").getInt(0));
@@ -138,14 +140,36 @@ public class ClasEventBuilder {
 			}
 		}
 		
-		if (hipoEvent.hasGroup("REC::Trajectory")) {
+		if (hipoEvent.hasGroup("REC::CovMat")) {
+			HipoGroup trajectoryBank = hipoEvent.getGroup("REC::CovMat");
+			for (int i = 0; i < trajectoryBank.getNode("pindex").getDataSize(); i++) {
+				float[][] covarianceMatrix = event.getParticles().get(trajectoryBank.getNode("pindex").getShort(i)).getCovarianceMatrix();				
+                                covarianceMatrix[0][0] = trajectoryBank.getNode("C11").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C13").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C14").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C15").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C22").getFloat(i);  
+                                covarianceMatrix[0][0] = trajectoryBank.getNode("C23").getFloat(i);                              
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C24").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C25").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C33").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C34").getFloat(i);
+                                covarianceMatrix[0][0] = trajectoryBank.getNode("C35").getFloat(i);
+                                covarianceMatrix[0][0] = trajectoryBank.getNode("C44").getFloat(i);
+				covarianceMatrix[0][0] = trajectoryBank.getNode("C45").getFloat(i);
+                                covarianceMatrix[0][0] = trajectoryBank.getNode("C55").getFloat(i);
+			}                              
+                                
+		}
+		if (hipoEvent.hasGroup("REC::CovMat")) {
 			HipoGroup trajectoryBank = hipoEvent.getGroup("REC::Trajectory");
 			for (int i = 0; i < trajectoryBank.getNode("pindex").getDataSize(); i++) {
 				ParticleTrajectory trajectory = new ParticleTrajectory();
-				trajectory.setPindex(trajectoryBank.getNode("pindex").getShort(i));
+                                trajectory.setPindex(trajectoryBank.getNode("pindex").getShort(i));
 				trajectory.setIndex(trajectoryBank.getNode("index").getShort(i));
 				trajectory.setDetId(trajectoryBank.getNode("detId").getShort(i));
-				trajectory.setQ((int) trajectoryBank.getNode("q").getByte(i));
+				
+                                trajectory.setQ((int) trajectoryBank.getNode("q").getByte(i));
 				trajectory.setX(trajectoryBank.getNode("x").getFloat(i));
 				trajectory.setY(trajectoryBank.getNode("y").getFloat(i));
 				trajectory.setZ(trajectoryBank.getNode("z").getFloat(i));
@@ -156,7 +180,6 @@ public class ClasEventBuilder {
 				event.getParticles().get(trajectory.getPindex()).getTrajectoryInfo().add(trajectory);
 			}
 		}
-		
 		
 /*
 		if (hipoEvent.hasGroup("REC::ForwardTagger")) {
