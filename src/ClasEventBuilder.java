@@ -138,6 +138,26 @@ public class ClasEventBuilder {
 			}
 		}
 		
+		if (hipoEvent.hasGroup("REC::Trajectory")) {
+			HipoGroup trajectoryBank = hipoEvent.getGroup("REC::Trajectory");
+			for (int i = 0; i < trajectoryBank.getNode("pindex").getDataSize(); i++) {
+				ParticleTrajectory trajectory = new ParticleTrajectory();
+				trajectory.setPindex(trajectoryBank.getNode("pindex").getShort(i));
+				trajectory.setIndex(trajectoryBank.getNode("index").getShort(i));
+				trajectory.setDetId(trajectoryBank.getNode("detId").getShort(i));
+				trajectory.setQ((int) trajectoryBank.getNode("q").getByte(i));
+				trajectory.setX(trajectoryBank.getNode("x").getFloat(i));
+				trajectory.setY(trajectoryBank.getNode("y").getFloat(i));
+				trajectory.setZ(trajectoryBank.getNode("z").getFloat(i));
+				trajectory.setCx(trajectoryBank.getNode("cx").getFloat(i));
+				trajectory.setCy(trajectoryBank.getNode("cy").getFloat(i));
+				trajectory.setCz(trajectoryBank.getNode("cz").getFloat(i));
+				trajectory.setPathlength(trajectoryBank.getNode("pathlength").getFloat(i));
+				event.getParticles().get(trajectory.getPindex()).getTrajectoryInfo().add(trajectory);
+			}
+		}
+		
+		
 /*
 		if (hipoEvent.hasGroup("REC::ForwardTagger")) {
 			HipoGroup forwardTaggerBank = hipoEvent.getGroup("REC::Scintillator");

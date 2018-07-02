@@ -5,7 +5,9 @@
  * Will Phelps (JLAB), June 20, 2018 
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.jlab.clas.physics.LorentzVector;
 import org.jlab.clas.physics.Vector3;
@@ -20,7 +22,8 @@ public class ClasParticle {
 	private float beta;
 	private int status;
 	private HashMap<DetectorType, DetectorHit> hits = new HashMap<DetectorType, DetectorHit>();
-
+	private List<ParticleTrajectory> trajectoryInfo = new ArrayList<ParticleTrajectory>();
+	
 	public LorentzVector getP4() {
 		return momentum;
 	}
@@ -83,6 +86,14 @@ public class ClasParticle {
 
 	public void setHits(HashMap<DetectorType, DetectorHit> hits) {
 		this.hits = hits;
+	}
+
+	public List<ParticleTrajectory> getTrajectoryInfo() {
+		return trajectoryInfo;
+	}
+
+	public void setTrajectoryInfo(List<ParticleTrajectory> trajectoryInfo) {
+		this.trajectoryInfo = trajectoryInfo;
 	}
 
 }

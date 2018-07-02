@@ -1,5 +1,4 @@
 import org.jlab.jnp.hipo.data.HipoEvent;
-import org.jlab.jnp.hipo.data.HipoGroup;
 import org.jlab.jnp.hipo.io.HipoReader;
 import org.jlab.jnp.hipo.io.HipoWriter;
 
@@ -42,7 +41,7 @@ public class ClasAnalyzer {
 				  ClasEventBuilder.buildEvent(hipoEvent, event);
 				  if(processEvent(event)&&writeHipoSkim) writer.writeEvent(hipoEvent);
 				  eventNumber++;
-				  if(eventNumber%100000==0) System.out.printf("Percent Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
+				  //if(eventNumber%100000==0) System.out.printf("Percent Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
 			  }
 		}
 		
