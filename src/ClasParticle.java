@@ -23,6 +23,7 @@ public class ClasParticle {
 	private int status;
 	private HashMap<DetectorType, DetectorHit> hits = new HashMap<DetectorType, DetectorHit>();
 	private List<ParticleTrajectory> trajectoryInfo = new ArrayList<ParticleTrajectory>();
+	private float[][] covarianceMatrix = new float[4][4];
 	
 	public LorentzVector getP4() {
 		return momentum;
@@ -94,6 +95,14 @@ public class ClasParticle {
 
 	public void setTrajectoryInfo(List<ParticleTrajectory> trajectoryInfo) {
 		this.trajectoryInfo = trajectoryInfo;
+	}
+
+	public float[][] getCovarianceMatrix() {
+		return covarianceMatrix;
+	}
+
+	public void setCovarianceMatrix(float[][] covarianceMatrix) {
+		this.covarianceMatrix = covarianceMatrix;
 	}
 
 }
