@@ -183,6 +183,62 @@ public class ClasEventBuilder {
 			}
 		}
 
+    /*             if (hipoEvent.hasGroup("REC::ParticleTrack")) {
+			HipoGroup ParticleTrackBank = hipoEvent.getGroup("REC::ParticleTrack");
+			for (int i = 0; i < ParticleTrackBank.getNode("pindex").getDataSize(); i++) {
+				ParticleTrack hit = new ParticleTrack();
+				hit.setIndex(ParticleTrackBank.getNode("index").getShort(i));
+				hit.setPindex(ParticleTrackBank.getNode("pindex").getShort(i));
+				hit.setDetector(ParticleTrackBank.getNode("detector").getByte(i));
+				hit.setSector(ParticleTrackBank.getNode("sector").getByte(i));
+				hit.setStatus(ParticleTrackBank.getNode("status").getShort(i));
+				hit.setQ(ParticleTrackBank.getNode("q").getByte(i));
+				hit.setChi2(ParticleTrackBank.getNode("chi2").getByte(i));
+				hit.setNDF((int) ParticleTrackBank.getNode("ndf").getFloat(i));
+				hit.setPx_nomm(ParticleTrackBank.getNode("px_nomm").getFloat(i));
+				hit.setPy_nomm(ParticleTrackBank.getNode("py_nomm").getFloat(i));
+				hit.setPz_nomm(ParticleTrackBank.getNode("pz_nomm").getFloat(i));
+				hit.setVx_nomm(ParticleTrackBank.getNode("vx_nomm").getFloat(i));
+				hit.setVy_nomm(ParticleTrackBank.getNode("vy_nomm").getFloat(i));
+				hit.setVz_nomm(ParticleTrackBank.getNode("vz_nomm").getFloat(i));
+  	\* 
+                        }
+		}
+      
+                
+                	}
+		}
+
+      //************* Not sure what to do with the VertaDoca *******************
+                    if (hipoEvent.hasGroup("REC::VertDoca")) {
+			HipoGroup VertaDBank = hipoEvent.getGroup("REC::VertDoca");
+			for (int i = 0; i < VertaDBank.getNode("index1").getDataSize(); i++) {
+				VertaDoca hit = new VertaDoca();
+                        
+                            trajectory.setPindex(trajectoryBank.getNode("pindex").getShort(i));
+
+                                setIndex1(VertaDBank.getNode("index1").getShort(i));
+				hit.setPindex(scintillatorBank.getNode("pindex").getShort(i));
+				hit.setDetector(scintillatorBank.getNode("detector").getfloat(i));
+				hit.setSector(scintillatorBank.getNode("sector").getfloat(i));
+				hit.setLayer(scintillatorBank.getNode("layer").getfloat(i));
+				hit.setEnergy(scintillatorBank.getNode("energy").getFloat(i));
+				hit.setTime(scintillatorBank.getNode("time").getFloat(i));
+				hit.setPath(scintillatorBank.getNode("path").getFloat(i));
+				hit.setChi2(scintillatorBank.getNode("chi2").getFloat(i));
+				hit.setX(scintillatorBank.getNode("x").getFloat(i));
+				hit.setY(scintillatorBank.getNode("y").getFloat(i));
+				hit.setZ(scintillatorBank.getNode("z").getFloat(i));
+				hit.setHx(scintillatorBank.getNode("hx").getFloat(i));
+				hit.setHy(scintillatorBank.getNode("hy").getFloat(i));
+				hit.setHz(scintillatorBank.getNode("hz").getFloat(i));
+				hit.setStatus(scintillatorBank.getNode("status").getfloat(i));
+				event.getParticles().get(hit.getPindex()).getHits().put(DetectorType.getType(hit.getDetector()), hit);
+			}
+                } 
+/*         ************************************************       
+
+
 		/*
 		 * if (hipoEvent.hasGroup("REC::ForwardTagger")) { HipoGroup forwardTaggerBank =
 		 * hipoEvent.getGroup("REC::Scintillator"); for (int i = 0; i <
