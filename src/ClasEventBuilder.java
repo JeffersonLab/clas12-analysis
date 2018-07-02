@@ -1,11 +1,10 @@
 import org.jlab.clas.pdg.PDGDatabase;
+import org.jlab.clas.pdg.PDGParticle;
 import org.jlab.detector.base.DetectorType;
 import org.jlab.jnp.hipo.data.HipoEvent;
 import org.jlab.jnp.hipo.data.HipoGroup;
 
 public class ClasEventBuilder {
-
-	private static ParticleTrajectory CovMat;
 
 	public static void buildEvent(HipoEvent hipoEvent, ClasEvent event) {
 		HipoGroup bank = hipoEvent.getGroup("REC::Event");
@@ -44,7 +43,8 @@ public class ClasEventBuilder {
 				double pz = partBank.getNode("pz").getFloat(i);
 
 				if (particle.getPid() != 0) {
-					particle.getP4().setPxPyPzM(px, py, pz, PDGDatabase.getParticleMass(particle.getPid()));
+					PDGParticle pgd = PDGDatabase.getParticleById(particle.getPid());
+					particle.getP4().setPxPyPzM(px, py, pz, pgd.mass());
 				} else {
 					particle.getP4().setPxPyPzM(px, py, pz,
 							Math.sqrt(px * px + py * py + pz * pz) / particle.getBeta());
