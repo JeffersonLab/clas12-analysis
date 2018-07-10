@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import javax.xml.stream.EventFilter;
+//import org.jlab.io.evio.*;
+//import org.jlab.oi.evio.clas12.*;
+//import org.jlab.clas.reader; 
 
 public class ClasEvent {
 	private int runNumber;
@@ -14,7 +18,29 @@ public class ClasEvent {
 	private float RFTime;
 	private int helicity;
 	private float processingTime;
-	
+
+   //Made no changes here     
+/* EventFilter filter = new EventFilter("11:2212:-211:X+:X-:Xn"); 
+        if(filter.isValid(recEvent)==true){
+        Particle mx_eppi = recEvent.getParticle("[b]+[t]-[11]-[2212]-[-211]");
+        double mass  = mx_eppi.mass();
+        double mom   = mx_eppi.p();
+        double theta = mx_eppi.theta();
+        double phi   = mx_eppi.phi();
+}
+
+
+    //Edited. Error with while statement 
+   /*     ClasEvent Source = new ClasEvent(); 
+        char c = reader.open("ClasEvent"); 
+        while (reader.has ClasParticle.()); {  
+            ClasEvent event = reader.getNextEvent(); 
+            event.show(); //prints all banks 
+   
+
+            }
+   */   
+        
 	ArrayList<ClasParticle> particles = new ArrayList<ClasParticle>();
 
 
@@ -151,4 +177,8 @@ public class ClasEvent {
 		return null;
 	}
 
+    private void show() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
