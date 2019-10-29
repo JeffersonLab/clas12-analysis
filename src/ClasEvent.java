@@ -15,6 +15,9 @@ public class ClasEvent {
 	private float RFTime;
 	private int helicity;
 	private float processingTime;
+	private boolean useft;
+	private float startTimeFT;
+	private short eventCategoryFT;
 
 	ArrayList<ClasParticle> particles = new ArrayList<ClasParticle>();
 
@@ -59,7 +62,11 @@ public class ClasEvent {
 	}
 
 	public short getEventCategory() {
-		return eventCategory;
+		if(this.useft) {
+			return this.eventCategoryFT;
+		}else {
+			return this.eventCategory;
+		}
 	}
 
 	public void setEventCategory(short eventCategory) {
@@ -106,7 +113,11 @@ public class ClasEvent {
 	}
 
 	public float getStartTime() {
-		return startTime;
+		if(this.useft) {
+			return this.startTimeFT;
+		}else {
+			return this.startTime;
+		}
 	}
 
 	public void setStartTime(float startTime) {
@@ -135,6 +146,14 @@ public class ClasEvent {
 
 	public void setProcessingTime(float processingTime) {
 		this.processingTime = processingTime;
+	}
+
+	public void setStartTimeFT(float startTimeFT) {
+		this.startTimeFT = startTimeFT;
+	}
+
+	public void setEventCategoryFT(short eventCategoryFT) {
+		this.eventCategoryFT = eventCategoryFT;
 	}
 
 	public int N(int pid) {
@@ -179,6 +198,17 @@ public class ClasEvent {
 			}
 		}
 		return null;
+	}
+
+	public boolean isUseft() {
+		return useft;
+	}
+
+	public void setUseft(boolean useft) {
+		this.useft = useft;
+		for(ClasParticle particle : this.particles) {
+			particle.setUseFT(useft);
+		}
 	}
 
 }

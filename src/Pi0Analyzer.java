@@ -228,6 +228,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 
 	@Override
 	boolean processEvent(ClasEvent event) {
+		event.setUseft(true);
 		boolean writeEvent = false;
 		if (event.getStartTime() < 0) {
 			return false;

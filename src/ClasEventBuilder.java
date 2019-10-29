@@ -13,9 +13,10 @@ public class ClasEventBuilder {
 		Event hipoEvent = new Event();
 		reader.nextEvent(hipoEvent);
 		if (hipoEvent.hasBank(factory.getSchema("REC::Event"))) {
-
-		Bank bank = new Bank(factory.getSchema("REC::Event"));
-		hipoEvent.read(bank);
+			boolean hasRECFTEvent = hipoEvent.hasBank(factory.getSchema("RECFT::Event"));
+			Bank recfteventbank = new Bank(factory.getSchema("RECFT::Event"));
+			Bank bank = new Bank(factory.getSchema("REC::Event"));
+			hipoEvent.read(bank);
 		//System.out.println(factory.getSchema("REC::Event"));
 //		event.setRunNumber(bank.getInt("NRUN",0));
 //		event.setEventNumber(bank.getInt("NEVENT",0));
@@ -26,10 +27,14 @@ public class ClasEventBuilder {
 //		event.setTRG(bank.getLong("TRG",0));
 //		event.setBcg(bank.getFloat("BCG",0));
 //		event.setClock(bank.getDouble("LT",0));
-//		event.setStartTime(bank.getFloat("STTime",0));
+		event.setStartTime(bank.getFloat("startTime",0));
 //		event.setRFTime(bank.getFloat("RFTime",0));
 //		event.setHelicity((int) bank.getByte("Helic",0));
 //		event.setProcessingTime(bank.getFloat("PTIME",0));
+		if(hasRECFTEvent) {
+			hipoEvent.read(recfteventbank);
+			event.setStartTimeFT(recfteventbank.getFloat("startTime",0));
+		}
 		boolean hasFTBank = hipoEvent.hasBank(factory.getSchema("RECFT::Particle"));
 		
 		if (hipoEvent.hasBank(factory.getSchema("REC::Particle"))) {
