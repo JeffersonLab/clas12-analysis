@@ -1,7 +1,9 @@
 import java.awt.Dimension;
+import java.io.File;
 
 import javax.swing.JFrame;
 
+import org.jlab.clas.pdg.PDGDatabase;
 import org.jlab.clas.pdg.PhysicsConstants;
 import org.jlab.clas.physics.LorentzVector;
 import org.jlab.detector.base.DetectorType;
@@ -19,23 +21,27 @@ public class Pi0Analyzer extends ClasAnalyzer {
 	static H1F momentum_neg = new H1F("Momentum_neg", 100, 0, 10);
 	static H1F momentum_all = new H1F("Momentum_all", 100, 0, 10);
 	static H1F particleTiming = new H1F("Timing Check", 1000, -10, 10);
+	static H1F htccTiming = new H1F("Timing Check", 1000, -400, 400);
+	static H1F electronPionAngle = new H1F("Angle Check", 1000, -180, 180);
 	static H1F ftof_mass = new H1F("ftofMass", 200, 0.001, 1.5);
-	static H1F threepi_mass = new H1F("ftofMass", 50, 0.000, 1.0);
+	static H1F ctof_mass = new H1F("ctofMass", 200, 0.001, 1.5);
+	static H1F threepi_mass = new H1F("ftofMass", 60, 0.4, 1.5);
 	static H1F twogamma_mass = new H1F("ftofMass", 70, 0.000, 1.0);
 	static H1F twogamma_mass_pi0 = new H1F("ftofMass_pi0", 70, 0.000, 1.0);
-	static H1F twokaon = new H1F("twoKaon", 50, .9, 1.9);
+	static H1F twokaon = new H1F("twoKaon", 100, .95, 1.8);
 	static H1F twopion = new H1F("twoPion", 100, 0.0, 1.5);
 	static H2F betavsp_forwardtagger = new H2F("NPE", 200, 0, 5, 200, .1, 1.2);
 	static H2F betavsp_central = new H2F("NPE", 200, 0, 5, 200, .1, 1.2);
+	static H2F ftofmass_vs_p = new H2F("ftofmass_vs_p", 200, 0, 5, 200, 0.0, 1.5);
 	static H2F betavsp_forward = new H2F("NPE", 200, 0, 5, 200, .1, 1.2);
 	static H2F nphevsp_pions = new H2F("NPE", 100, 0, 7, 50, 0, 50);
+	static H2F nphevsp_pions_intime = new H2F("NPE", 100, 0, 7, 50, 0, 50);
 	static H2F nphevsp_electrons = new H2F("NPE_electrons", 100, 0, 7, 50, 0, 50);
 	static H2F nphevsp_protons = new H2F("NPE_protons", 100, 0, 7, 50, 0, 50);
-	static H2F thetavsp_electrons = new H2F("theta_vs_electrons", 100, 0, 45,100,0,7);
-	static H2F npevstheta_electrons = new H2F("NPE_vs_theta_electrons", 100, 0, 45,50,0,50);
-	static H2F npevsphi_electrons = new H2F("NPE_vs_phi_electrons", 100, -180, 180,50,0,50);
+	static H2F thetavsp_electrons = new H2F("theta_vs_electrons", 100, 0, 45, 100, 0, 7);
+	static H2F npevstheta_electrons = new H2F("NPE_vs_theta_electrons", 100, 0, 45, 50, 0, 50);
+	static H2F npevsphi_electrons = new H2F("NPE_vs_phi_electrons", 100, -180, 180, 50, 0, 50);
 
-	
 	public static void main(String[] args) {
 		initCanvas();
 
@@ -47,14 +53,30 @@ public class Pi0Analyzer extends ClasAnalyzer {
 			// analyzer.setHipoOutputFile("/Users/wphelps/Desktop/rga/phys/phys_3105_twogamma.hipo");
 			analyzer.processEvents();
 		}
-
+		/*
 		if (args.length == 0) {
-			//analyzer.openFile("/Users/wphelps/Desktop/rga/4013Timing.hipo");
-			analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo");
+			// analyzer.openFile("/Users/wphelps/Desktop/rga/4013Timing.hipo");
+			//analyzer.openFile("/Users/wphelps/Desktop/rga/phys2_4013.hipo");
+			analyzer.openFile("/Users/wphelps/Desktop/pass0/phys2_4013.hipo");
+			// analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo");
 
 			analyzer.processEvents();
+		}*/
+		//File directory = new File("/Volumes/External HDD/dst/");
+		String dir = "/Users/wphelps/Desktop/rga/skim4/";
+		File directory = new File(dir);
+		String[] filesList = directory.list();
+		for (int i = 0; i < filesList.length; i++) {
+			try {
+			analyzer.openFile(dir+filesList[i]);
+			analyzer.processEvents();
+			}catch(Exception e) {
+			}
 		}
-
+		
+		//analyzer.openFile(dir+"skim4_5040.hipo");
+		//analyzer.processEvents();
+		
 		GStyle.getAxisAttributesX().setTitleFontSize(18);
 		GStyle.getAxisAttributesY().setTitleFontSize(18);
 		GStyle.getAxisAttributesX().setLabelFontSize(16);
@@ -94,20 +116,23 @@ public class Pi0Analyzer extends ClasAnalyzer {
 		nphevsp_protons.setTitleX("Momentum of particles [GeV/c]");
 		nphevsp_protons.setTitleY("Number of Photoelectrons");
 		nphevsp_protons.setTitle("HTCC Response for Protons");
-		
+
 		thetavsp_electrons.setTitleX("Electron #theta [deg]");
 		thetavsp_electrons.setTitleY("Electron momentum [GeV/c]");
 
 		npevstheta_electrons.setTitleX("Electron #theta [deg]");
 		npevstheta_electrons.setTitleY("NPE");
-		
+
 		npevsphi_electrons.setTitleX("Electron #phi [deg]");
 		npevsphi_electrons.setTitleY("NPE");
-
 
 		ftof_mass.setTitleX("Mass [GeV/c^2]");
 		ftof_mass.setTitleY("Counts");
 		ftof_mass.setTitle("FTOF Mass");
+		
+		ctof_mass.setTitleX("Mass [GeV/c^2]");
+		ctof_mass.setTitleY("Counts");
+		ctof_mass.setTitle("CTOF Mass");
 
 		twokaon.setTitleX("M(k^+k^-) [GeV/c^2]");
 		twokaon.setTitleY("Counts");
@@ -153,6 +178,10 @@ public class Pi0Analyzer extends ClasAnalyzer {
 		can.cd(pad++);
 		can.draw(ftof_mass);
 		can.cd(pad++);
+		can.draw(ftofmass_vs_p);
+		can.cd(pad++);
+		can.draw(ctof_mass);
+		can.cd(pad++);
 		can.draw(twokaon);
 		can.cd(pad++);
 		can.draw(twopion);
@@ -181,8 +210,15 @@ public class Pi0Analyzer extends ClasAnalyzer {
 		can.draw(npevstheta_electrons);
 		can.cd(pad++);
 		can.draw(npevsphi_electrons);
+		can.cd(pad++);
+		can.draw(htccTiming);
+		//can.cd(pad++);
+		//can.draw(nphevsp_pions_intime);
+		//can.cd(pad++);
+		//can.draw(electronPionAngle);
 
-		can.initTimer(500);
+		can.initTimer(16);
+		can.showFPS(true);
 		frame.add(can);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
@@ -205,12 +241,29 @@ public class Pi0Analyzer extends ClasAnalyzer {
 			twopion.fill(rho.mass());
 		}
 
-		if (event.N(321) == 1 && event.N(-321) == 1 && event.N(11) > 0) {
+		if (event.N(321) == 1 && event.N(-321) == 1 && event.N(11) == 1) {
 			ClasParticle kp = event.getParticle(321, 0);
 			ClasParticle km = event.getParticle(-321, 0);
-			LorentzVector phi = new LorentzVector(kp.getP4());
-			phi.add(km.getP4());
-			twokaon.fill(phi.mass());
+			ClasParticle electron = event.getParticle(11, 0);
+
+			LorentzVector beam = new LorentzVector();
+			beam.setPxPyPzE(0.0, 0.0, 10.6, Math.sqrt(Math.pow(10.6, 2) + Math.pow(0.000511, 2)));
+
+			LorentzVector target = new LorentzVector();
+			target.setPxPyPzE(0.0, 0.0, 0.0, 0.938);
+
+			LorentzVector missingMomentum = new LorentzVector();
+			missingMomentum.add(beam);
+			missingMomentum.add(target);
+			missingMomentum.sub(kp.getP4());
+			missingMomentum.sub(km.getP4());
+			missingMomentum.sub(electron.getP4());
+			//(kp.getP4().p() < 2.0 && km.getP4().p() < 2.0 &&
+			if ( Math.abs(missingMomentum.mass() -.938) < .100 &&kp.getP4().p() < 2.0 && km.getP4().p() < 2.0) {
+				LorentzVector phi = new LorentzVector(kp.getP4());
+				phi.add(km.getP4());
+				twokaon.fill(phi.mass());
+			}
 		}
 
 		if (event.N(22) == 2 && event.N(11) == 1 && event.N(211) == 1 && event.N(-211) == 1) {
@@ -231,11 +284,28 @@ public class Pi0Analyzer extends ClasAnalyzer {
 				LorentzVector omega = new LorentzVector(pi0);
 				omega.add(ppip);
 				omega.add(ppim);
+				
+				LorentzVector beam = new LorentzVector();
+				beam.setPxPyPzE(0.0, 0.0, 10.6, Math.sqrt(Math.pow(10.6, 2) + Math.pow(0.000511, 2)));
 
-				twogamma_mass.fill(pi0.mass());
-				if (Math.abs(pi0.mass() - .135) < .075) {
-					twogamma_mass_pi0.fill(pi0.mass());
-					threepi_mass.fill(omega.mass());
+				LorentzVector target = new LorentzVector();
+				target.setPxPyPzE(0.0, 0.0, 0.0, 0.938);
+
+				LorentzVector missingMomentum = new LorentzVector();
+				missingMomentum.add(beam);
+				missingMomentum.add(target);
+				missingMomentum.sub(gamma1.getP4());
+				missingMomentum.sub(gamma2.getP4());
+				missingMomentum.sub(pim.getP4());
+				missingMomentum.sub(pip.getP4());
+				missingMomentum.sub(electron1.getP4());
+				
+				if(Math.abs(missingMomentum.mass() -0.0) < .10){
+					twogamma_mass.fill(pi0.mass());
+					if (Math.abs(pi0.mass() - .135) < .045) {
+						twogamma_mass_pi0.fill(pi0.mass());
+						threepi_mass.fill(omega.mass());
+					}
 				}
 			}
 		}
@@ -259,14 +329,20 @@ public class Pi0Analyzer extends ClasAnalyzer {
 					momentum_neg.fill(particle.getP4().p());
 				}
 				if (i != 0) {
-					if (Math.toDegrees(particle.getP4().theta()) > 35.) {
+					if (particle.getStatus()/1000==4) {
 						betavsp_central.fill(particle.getP4().p(), particle.getBeta());
-					} else if (Math.toDegrees(particle.getP4().theta()) > 5.) {
+						ctof_mass.fill(Math.sqrt(Math.pow(particle.getP4().p() / particle.getBeta(), 2)
+								- Math.pow(particle.getP4().p(), 2)));
+					} else if (particle.getStatus()/1000==2) {
 						betavsp_forward.fill(particle.getP4().p(), particle.getBeta());
+						//if(particle.getChi2pid()<1.0) {
 						ftof_mass.fill(Math.sqrt(Math.pow(particle.getP4().p() / particle.getBeta(), 2)
 								- Math.pow(particle.getP4().p(), 2)));
+						ftofmass_vs_p.fill(particle.getP4().p(), Math.sqrt(Math.pow(particle.getP4().p() / particle.getBeta(), 2)
+								- Math.pow(particle.getP4().p(), 2)));
+					//	}
 
-					} else if (Math.toDegrees(particle.getP4().theta()) < 5.) {
+					} else if (particle.getStatus()/1000==1) {
 						betavsp_forwardtagger.fill(particle.getP4().p(), particle.getBeta());
 					}
 				}
@@ -291,6 +367,29 @@ public class Pi0Analyzer extends ClasAnalyzer {
 					if (particle.isDetectorHit(DetectorType.HTCC)) {
 						CherenkovHit hit = (CherenkovHit) particle.getDetectorHit(DetectorType.HTCC);
 						nphevsp_pions.fill(particle.getP4().p(), hit.getNphe());
+						if (particle.isDetectorHit(DetectorType.FTOF)) {
+							ScintillatorHit schit = (ScintillatorHit) particle.getDetectorHit(DetectorType.FTOF);
+							double deltat = (schit.getPath() / (particle.getBeta() * PhysicsConstants.speedOfLight()))
+									- (hit.getPath() / (particle.getBeta() * PhysicsConstants.speedOfLight()));
+							htccTiming.fill(deltat);
+							LorentzVector ppion = particle.getP4();
+							boolean tooClose = false;
+							for (int i = 0; i < event.getParticles().size(); i++) {
+								ClasParticle thisParticle = event.getParticles().get(i);
+								if (!thisParticle.equals(particle)) {
+									LorentzVector pelectron = event.getParticles().get(i).getP4();
+									double angle = Math.toDegrees(Math
+											.acos(pelectron.vect().dot(ppion.vect()) / (pelectron.p() * ppion.p())));
+									electronPionAngle.fill(angle);
+									if (angle < 50.0) {
+										tooClose = true;
+									}
+								}
+								if (Math.abs(deltat - 23) < 3 && !tooClose) {
+									nphevsp_pions_intime.fill(particle.getP4().p(), hit.getNphe());
+								}
+							}
+						}
 					}
 				}
 
@@ -302,7 +401,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 					if (particle.isDetectorHit(DetectorType.HTCC)) {
 						CherenkovHit hit = (CherenkovHit) particle.getDetectorHit(DetectorType.HTCC);
 						nphevsp_electrons.fill(particle.getP4().p(), hit.getNphe());
-					
+
 					}
 				}
 

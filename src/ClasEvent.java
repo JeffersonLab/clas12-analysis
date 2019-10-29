@@ -1,8 +1,4 @@
 import java.util.ArrayList;
-import javax.xml.stream.EventFilter;
-//import org.jlab.io.evio.*;
-//import org.jlab.oi.evio.clas12.*;
-//import org.jlab.clas.reader; 
 
 public class ClasEvent {
 	private int runNumber;
@@ -12,6 +8,7 @@ public class ClasEvent {
 	private short eventCategory;
 	private short NPGP;
 	private long TRG;
+	private boolean[] triggerBits = new boolean[32];
 	private float bcg;
 	private double clock;
 	private float startTime;
@@ -19,30 +16,7 @@ public class ClasEvent {
 	private int helicity;
 	private float processingTime;
 
-   //Made no changes here     
-/* EventFilter filter = new EventFilter("11:2212:-211:X+:X-:Xn"); 
-        if(filter.isValid(recEvent)==true){
-        Particle mx_eppi = recEvent.getParticle("[b]+[t]-[11]-[2212]-[-211]");
-        double mass  = mx_eppi.mass();
-        double mom   = mx_eppi.p();
-        double theta = mx_eppi.theta();
-        double phi   = mx_eppi.phi();
-}
-
-
-    //Edited. Error with while statement 
-   /*     ClasEvent Source = new ClasEvent(); 
-        char c = reader.open("ClasEvent"); 
-        while (reader.has ClasParticle.()); {  
-            ClasEvent event = reader.getNextEvent(); 
-            event.show(); //prints all banks 
-   
-
-            }
-   */   
-        
 	ArrayList<ClasParticle> particles = new ArrayList<ClasParticle>();
-
 
 	public long getEventNumber() {
 		return eventNumber;
@@ -106,6 +80,13 @@ public class ClasEvent {
 
 	public void setTRG(long tRG) {
 		TRG = tRG;
+		for (int i = 31; i >= 0; i--) {
+			triggerBits[i] = (tRG & (1 << i)) != 0;
+		}
+	}
+	
+	public boolean isTrigBit(int bit) {
+		return triggerBits[bit];
 	}
 
 	public float getBcg() {
@@ -157,19 +138,29 @@ public class ClasEvent {
 	}
 
 	public int N(int pid) {
-		int nParticles = 0;	
-		for(ClasParticle particle:particles) {
-			if(particle.getPid()==pid) nParticles++;
+		int nParticles = 0;
+		for (ClasParticle particle : particles) {
+			if (particle.getPid() == pid)
+				nParticles++;
+		}
+		return nParticles;
+	}
+
+	public int NCharged(int charge) {
+		int nParticles = 0;
+		for (ClasParticle particle : particles) {
+			if (particle.getCharge() == charge)
+				nParticles++;
 		}
 		return nParticles;
 	}
 
 	public ClasParticle getParticle(int pid, int index) {
 		int n = -1;
-		for(ClasParticle particle :  particles) {
-			if(particle.getPid()==pid) {
+		for (ClasParticle particle : particles) {
+			if (particle.getPid() == pid) {
 				n++;
-				if(n==index) {
+				if (n == index) {
 					return particle;
 				}
 			}
@@ -177,8 +168,17 @@ public class ClasEvent {
 		return null;
 	}
 
-    private void show() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+	public ClasParticle getParticleByCharge(int charge, int index) {
+		int n = -1;
+		for (ClasParticle particle : particles) {
+			if (particle.getCharge() == charge) {
+				n++;
+				if (n == index) {
+					return particle;
+				}
+			}
+		}
+		return null;
+	}
+
 }
