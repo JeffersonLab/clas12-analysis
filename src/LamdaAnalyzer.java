@@ -70,23 +70,30 @@ public class LamdaAnalyzer extends ClasAnalyzer {
 		// analyzer.openFile("/Users/wphelps/Desktop/rga/5bp3p1/phys2_4013.hipo");
 		// analyzer.openFile("/Users/wphelps/Desktop/pass0/phys2_4013.hipo");
 		// analyzer.processEvents();
-		//String dir = "/Users/wphelps/Desktop/rga/skim4/";
-		String dir = args[0];
+		String dir = "/Users/wphelps/Desktop/rga/skim11_elect_ft_kaon/";
 		File directory = new File(dir);
-		String[] filesList = directory.list();
-		for (int i = 0; i < filesList.length; i++) {
-			try {
-				analyzer.openFile(dir + filesList[i]);
-				analyzer.processEvents();
-			} catch (Exception e) {
-			}
-		}
+		analyzer.openFile(dir+"skim11_5039.hipo");
+		analyzer.processEvents();
+		analyzer.openFile(dir+"skim11_5040.hipo");
+		analyzer.processEvents();
+
+//		String dir = args[0];
+//		File directory = new File(dir);
+//		String[] filesList = directory.list();
+//		for (int i = 0; i < filesList.length; i++) {
+//			try {
+//				analyzer.openFile(dir + filesList[i]);
+//				analyzer.processEvents();
+//			} catch (Exception e) {
+//			}
+//		}
 		//analyzer.openFile(dir+"skim4_5036.hipo");
 		//analyzer.processEvents();
 	}
 
 	@Override
 	boolean processEvent(ClasEvent event) {
+		event.setUseft(true);
 		if (event.N(2212) == 1 && event.N(11) == 1&&event.N(321)==1&&event.N(-211)==1) {
 			ClasParticle proton = event.getParticle(2212, 0);
 			ClasParticle pim = event.getParticle(-211, 0);

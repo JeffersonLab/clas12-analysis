@@ -53,26 +53,24 @@ public class Pi0Analyzer extends ClasAnalyzer {
 			// analyzer.setHipoOutputFile("/Users/wphelps/Desktop/rga/phys/phys_3105_twogamma.hipo");
 			analyzer.processEvents();
 		}
-		/*
-		if (args.length == 0) {
-			// analyzer.openFile("/Users/wphelps/Desktop/rga/4013Timing.hipo");
-			//analyzer.openFile("/Users/wphelps/Desktop/rga/phys2_4013.hipo");
-			analyzer.openFile("/Users/wphelps/Desktop/pass0/phys2_4013.hipo");
-			// analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo");
 
-			analyzer.processEvents();
-		}*/
-		//File directory = new File("/Volumes/External HDD/dst/");
-		String dir = "/Users/wphelps/Desktop/rga/skim4/";
-		File directory = new File(dir);
-		String[] filesList = directory.list();
-		for (int i = 0; i < filesList.length; i++) {
-			try {
-			analyzer.openFile(dir+filesList[i]);
-			analyzer.processEvents();
-			}catch(Exception e) {
+		if(args.length == 0) {
+			String dir = "/Users/wphelps/Desktop/rga/skim11_elect_ft_kaon/";
+			File directory = new File(dir);
+//			analyzer.openFile(dir+"skim11_5038.hipo");
+//			analyzer.processEvents();
+//			analyzer.openFile(dir+"skim11_5040.hipo");
+//			analyzer.processEvents();
+			String[] filesList = directory.list();
+			for (int i = 0; i < filesList.length; i++) {
+				try {
+					analyzer.openFile(dir + filesList[i]);
+					analyzer.processEvents();
+				} catch (Exception e) {
+				}
 			}
 		}
+
 		
 		//analyzer.openFile(dir+"skim4_5040.hipo");
 		//analyzer.processEvents();
@@ -217,7 +215,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 		//can.cd(pad++);
 		//can.draw(electronPionAngle);
 
-		can.initTimer(16);
+		can.initTimer(1000);
 		can.showFPS(true);
 		frame.add(can);
 		frame.setLocationRelativeTo(null);
@@ -260,7 +258,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 			missingMomentum.sub(km.getP4());
 			missingMomentum.sub(electron.getP4());
 			//(kp.getP4().p() < 2.0 && km.getP4().p() < 2.0 &&
-			if ( Math.abs(missingMomentum.mass() -.938) < .100 &&kp.getP4().p() < 2.0 && km.getP4().p() < 2.0) {
+			if ( Math.abs(missingMomentum.mass() -.938) < .2 && kp.getP4().p() > .3 && km.getP4().p() > .3&&Math.abs(kp.getStatus())/1000==4&&Math.abs(km.getStatus())/1000==4) {
 				LorentzVector phi = new LorentzVector(kp.getP4());
 				phi.add(km.getP4());
 				twokaon.fill(phi.mass());
@@ -317,6 +315,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 				break;
 
 			// if(Math.abs(event.getStartTime()-particle.get
+			//System.out.println("Charge:"+particle.getCharge()+" pid:"+particle.getPid());
 			if (particle.getCharge() != 0 && particle.getPid() != 0) {
 				momentum_all.fill(particle.getP4().p());
 				if (particle.isDetectorHit(DetectorType.FTOF)) {
@@ -330,11 +329,11 @@ public class Pi0Analyzer extends ClasAnalyzer {
 					momentum_neg.fill(particle.getP4().p());
 				}
 				if (i != 0) {
-					if (particle.getStatus()/1000==4) {
+					if (Math.abs(particle.getStatus())/1000==4) {
 						betavsp_central.fill(particle.getP4().p(), particle.getBeta());
 						ctof_mass.fill(Math.sqrt(Math.pow(particle.getP4().p() / particle.getBeta(), 2)
 								- Math.pow(particle.getP4().p(), 2)));
-					} else if (particle.getStatus()/1000==2) {
+					} else if (Math.abs(particle.getStatus())/1000==2) {
 						betavsp_forward.fill(particle.getP4().p(), particle.getBeta());
 						//if(particle.getChi2pid()<1.0) {
 						ftof_mass.fill(Math.sqrt(Math.pow(particle.getP4().p() / particle.getBeta(), 2)
@@ -343,7 +342,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 								- Math.pow(particle.getP4().p(), 2)));
 					//	}
 
-					} else if (particle.getStatus()/1000==1) {
+					} else if (Math.abs(particle.getStatus())/1000==1) {
 						betavsp_forwardtagger.fill(particle.getP4().p(), particle.getBeta());
 					}
 				}

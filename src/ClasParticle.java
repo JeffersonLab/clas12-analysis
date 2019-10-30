@@ -29,10 +29,12 @@ public class ClasParticle {
 	private float chi2pidft;
 	private float betaft;
 	private int statusft;
+	private float vt;
+	private float vtft;
 	private HashMap<DetectorType, DetectorHit> hits = new HashMap<DetectorType, DetectorHit>();
 	private List<ParticleTrajectory> trajectoryInfo = new ArrayList<ParticleTrajectory>();
 	private float[][] covarianceMatrix = new float[4][4];
-	
+
 	public LorentzVector getP4() {
 		return momentum;
 	}
@@ -50,9 +52,9 @@ public class ClasParticle {
 	}
 
 	public int getPid() {
-		if(useft) {
+		if (useft) {
 			return pidft;
-		}else {
+		} else {
 			return pid;
 		}
 	}
@@ -62,11 +64,7 @@ public class ClasParticle {
 	}
 
 	public int getCharge() {
-		if(useft) {
-			return chargeft;
-		}else {
-			return charge;
-		}
+		return charge;
 	}
 
 	public void setCharge(int charge) {
@@ -74,9 +72,9 @@ public class ClasParticle {
 	}
 
 	public float getChi2pid() {
-		if(useft) {
+		if (useft) {
 			return chi2pidft;
-		}else {
+		} else {
 			return chi2pid;
 		}
 	}
@@ -86,9 +84,9 @@ public class ClasParticle {
 	}
 
 	public int getStatus() {
-		if(useft) {
+		if (useft) {
 			return statusft;
-		}else {
+		} else {
 			return status;
 		}
 	}
@@ -96,23 +94,23 @@ public class ClasParticle {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
+
 	public int getSector() {
 		int sector = -1000;
-		for(DetectorType dtype : hits.keySet()) {
+		for (DetectorType dtype : hits.keySet()) {
 			int tempsector = hits.get(dtype).getSector();
-			if(tempsector>0) {
+			if (tempsector > 0) {
 				sector = tempsector;
-				System.out.println("Detector"+dtype.toString()+" Sector:"+sector);
+				System.out.println("Detector" + dtype.toString() + " Sector:" + sector);
 			}
 		}
 		return sector;
 	}
 
 	public float getBeta() {
-		if(useft) {
+		if (useft) {
 			return betaft;
-		}else {
+		} else {
 			return beta;
 		}
 	}
@@ -144,8 +142,7 @@ public class ClasParticle {
 	public void setCovarianceMatrix(float[][] covarianceMatrix) {
 		this.covarianceMatrix = covarianceMatrix;
 	}
-	
-	
+
 	public boolean isUseFT() {
 		return useft;
 	}
@@ -161,7 +158,7 @@ public class ClasParticle {
 	public void setChargeFt(int chargeft) {
 		this.chargeft = chargeft;
 	}
-	
+
 	public void setChi2pidFT(float chi2pidft) {
 		this.chi2pidft = chi2pidft;
 	}
@@ -174,25 +171,39 @@ public class ClasParticle {
 		this.statusft = statusft;
 		this.setMass();
 	}
-	
-	public void setMass(){
+
+	public void setMass() {
 		double px = this.getP4().px();
 		double py = this.getP4().py();
 		double pz = this.getP4().pz();
-	
+
 		if (this.getPid() != 0) {
 			try {
 				PDGParticle pgd = PDGDatabase.getParticleById(this.getPid());
-				this.getP4().setPxPyPzM(px,py,pz, pgd.mass());
-			}catch(Exception e) {
-				System.out.println("Some messed up PID:"+this.getPid()+ " "+px+" "+py+" "+pz  );
-				this.getP4().setPxPyPzM(px,py,pz, Math.sqrt(px * px + py * py + pz * pz) / this.getBeta());
+				this.getP4().setPxPyPzM(px, py, pz, pgd.mass());
+			} catch (Exception e) {
+				System.out.println("Some messed up PID:" + this.getPid() + " " + px + " " + py + " " + pz);
+				this.getP4().setPxPyPzM(px, py, pz, Math.sqrt(px * px + py * py + pz * pz) / this.getBeta());
 			}
 		} else {
-			this.getP4().setPxPyPzM(px, py, pz,
-					Math.sqrt(px * px + py * py + pz * pz) / this.getBeta());
+			this.getP4().setPxPyPzM(px, py, pz, Math.sqrt(px * px + py * py + pz * pz) / this.getBeta());
 		}
 	}
 
+	public float getVt() {
+		if(this.useft) {
+			return this.vtft;
+		}else {
+			return this.vt;
+		}
+	}
+
+	public void setVt(float vt) {
+		this.vt = vt;
+	}
+	
+	public void setVtFT(float vt) {
+		this.vtft = vt;
+	}
 
 }

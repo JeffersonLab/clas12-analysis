@@ -50,8 +50,7 @@ public class ClasEventBuilder {
 				//System.out.println("PID:"+partBank.getInt("pid",i)+"Charge="+charge+" i="+i+" length:"+partBank.getRows());
 				particle.setPid(partBank.getInt("pid",i));
 				particle.setCharge((int) partBank.getByte("charge",i));
-				//System.out.println("Pid:"+particle.getPid()+" Charge:"+particle.getCharge()+"
-				// Charge bytes:"+partBank.getNode("charge").getByte(i));
+				//System.out.println("Pid:"+particle.getPid()+" Charge:"+particle.getCharge()+"Charge bytes:"+partBank.getByte("charge",i));
 				particle.setBeta(partBank.getFloat("beta",i));
 				particle.setChi2pid(partBank.getFloat("chi2pid",i));
 				particle.setStatus(partBank.getShort("status",i));
@@ -67,8 +66,10 @@ public class ClasEventBuilder {
 				if(hasFTBank){
 					particle.setPidFT(recFTBank.getInt("pid",i));
 					particle.setChi2pidFT(recFTBank.getFloat("chi2pid",i));
-					particle.setBetaFT(partBank.getFloat("beta",i));
-					particle.setStatusFT(partBank.getShort("status",i));
+					particle.setBetaFT(recFTBank.getFloat("beta",i));
+					particle.setStatusFT(recFTBank.getShort("status",i));
+//					System.out.println("PID:"+recFTBank.getInt("pid",i)+"Beta="+recFTBank.getFloat("beta",i)+" chi2="+recFTBank.getFloat("chi2pid",i)+" status:"+recFTBank.getShort("status",i));
+
 				}
 			
 			
