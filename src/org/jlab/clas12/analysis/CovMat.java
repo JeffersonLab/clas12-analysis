@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 /*
  * Bank: REC::CovMat 
  * info: Reconstructed track covariance matrix

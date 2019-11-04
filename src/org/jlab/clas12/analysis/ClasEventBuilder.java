@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 import org.jlab.clas.pdg.PDGDatabase;
 import org.jlab.clas.pdg.PDGParticle;
 import org.jlab.detector.base.DetectorType;

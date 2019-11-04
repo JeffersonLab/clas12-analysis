@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/wphelps/Documents/coatjava/coatjava_5b.4.0/coatjava/lib/clas/coat-libs-5.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/Users/wphelps/Documents/workspace/COATJAVA/coatjava_6.3.1/lib/clas/coat-libs-6.3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

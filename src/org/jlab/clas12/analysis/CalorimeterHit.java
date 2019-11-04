@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 /*
  * Bank: REC::Calorimeter
  * info: Calorimeter responses for particle bank 

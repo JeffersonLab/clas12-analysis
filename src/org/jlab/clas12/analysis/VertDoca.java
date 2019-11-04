@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 /*
  * Bank:VertDoca  
  * info:Track Cross information for Particles bank

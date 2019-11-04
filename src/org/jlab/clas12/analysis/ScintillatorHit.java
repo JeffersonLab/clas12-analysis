@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 /*
  * Bank: REC::Scintillator 
  * info: Scintillator responses for particle bank 

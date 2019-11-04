@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 import java.util.ArrayList;
 
 public class ClasEvent {

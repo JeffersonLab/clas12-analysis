@@ -1,3 +1,4 @@
+package org.jlab.clas12.examples;
 import java.awt.Dimension;
 import java.io.File;
 
@@ -5,6 +6,9 @@ import javax.swing.JFrame;
 
 import org.jlab.clas.pdg.PDGDatabase;
 import org.jlab.clas.physics.LorentzVector;
+import org.jlab.clas12.analysis.ClasAnalyzer;
+import org.jlab.clas12.analysis.ClasEvent;
+import org.jlab.clas12.analysis.ClasParticle;
 import org.jlab.detector.base.DetectorType;
 import org.jlab.groot.data.H1F;
 import org.jlab.groot.graphics.EmbeddedCanvas;
@@ -92,7 +96,7 @@ public class LamdaAnalyzer extends ClasAnalyzer {
 	}
 
 	@Override
-	boolean processEvent(ClasEvent event) {
+	public boolean processEvent(ClasEvent event) {
 		event.setUseft(true);
 		if (event.N(2212) == 1 && event.N(11) == 1&&event.N(321)==1&&event.N(-211)==1) {
 			ClasParticle proton = event.getParticle(2212, 0);

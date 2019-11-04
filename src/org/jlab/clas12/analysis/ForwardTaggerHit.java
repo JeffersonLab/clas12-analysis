@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 
 public class ForwardTaggerHit extends DetectorHit{
 	private float energy;

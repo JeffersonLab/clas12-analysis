@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 
 public class DetectorHit {
 	private int index; // #16 Index of the hit in the specific detector bank

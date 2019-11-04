@@ -1,9 +1,13 @@
+package org.jlab.clas12.examples;
 import java.awt.Dimension;
 import java.io.File;
 
 import javax.swing.JFrame;
 
 import org.jlab.clas.physics.LorentzVector;
+import org.jlab.clas12.analysis.ClasAnalyzer;
+import org.jlab.clas12.analysis.ClasEvent;
+import org.jlab.clas12.analysis.ClasParticle;
 import org.jlab.groot.data.H1F;
 import org.jlab.groot.graphics.EmbeddedCanvas;
 
@@ -14,6 +18,7 @@ public class OmegaAnalyzer extends ClasAnalyzer {
 	static H1F pi0Mass = new H1F("RhoMass",100,0,1.5);	
 	static H1F missingMass = new H1F("missingMass",100,-1.0,1.0);
 	static H1F missingMassSelection = new H1F("missingMassSelection",100,-1.0,1.0);
+	
 
 	public static void main(String args[]) {	
 		omegaMass.setTitleX("M(#pi^+#pi^-) [GeV/c^2]");
@@ -69,7 +74,7 @@ public class OmegaAnalyzer extends ClasAnalyzer {
 	}
 	
 	@Override
-	boolean processEvent(ClasEvent event){
+	public boolean processEvent(ClasEvent event){
 		if(event.N(211)==1&&event.N(-211)==1&&event.N(11)==1&&event.N(2212)==1&&event.N(22)>=2) {
 			ClasParticle pip = event.getParticle(211,0);
 			ClasParticle pim = event.getParticle(-211,0);

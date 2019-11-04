@@ -1,14 +1,18 @@
+package org.jlab.clas12.examples;
 import java.awt.Dimension;
 import java.io.File;
 
 import javax.swing.JFrame;
 
 import org.jlab.clas.physics.LorentzVector;
+import org.jlab.clas12.analysis.ClasAnalyzer;
+import org.jlab.clas12.analysis.ClasEvent;
+import org.jlab.clas12.analysis.ClasParticle;
 import org.jlab.detector.base.DetectorType;
 import org.jlab.groot.data.H1F;
 import org.jlab.groot.graphics.EmbeddedCanvas;
 
-public class RealPi0Analyzer extends ClasAnalyzer {
+public class Pi0Analyzer extends ClasAnalyzer {
 	static EmbeddedCanvas canvas = new EmbeddedCanvas();
 	static H1F pi0Mass = new H1F("pi0Mass", 100, 0, 1.2);
 	static long eventCounter = 0;
@@ -38,7 +42,7 @@ public class RealPi0Analyzer extends ClasAnalyzer {
 		frame.pack();
 		frame.setVisible(true);
 
-		RealPi0Analyzer analyzer = new RealPi0Analyzer();
+		Pi0Analyzer analyzer = new Pi0Analyzer();
 		String dir = "/Users/wphelps/Desktop/rga/v2/skim4_inclusive/";
 //		File directory = new File(dir);
 //		String[] filesList = directory.list();
@@ -56,7 +60,7 @@ public class RealPi0Analyzer extends ClasAnalyzer {
 	
 
 	@Override
-	boolean processEvent(ClasEvent event) {		
+	public boolean processEvent(ClasEvent event) {		
 		
 		long startTime = 0;
 		/*for(ClasParticle particle : event.particles) {

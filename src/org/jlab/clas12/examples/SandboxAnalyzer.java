@@ -1,3 +1,4 @@
+package org.jlab.clas12.examples;
 import java.awt.Dimension;
 import java.io.File;
 
@@ -6,6 +7,11 @@ import javax.swing.JFrame;
 import org.jlab.clas.pdg.PDGDatabase;
 import org.jlab.clas.pdg.PhysicsConstants;
 import org.jlab.clas.physics.LorentzVector;
+import org.jlab.clas12.analysis.CherenkovHit;
+import org.jlab.clas12.analysis.ClasAnalyzer;
+import org.jlab.clas12.analysis.ClasEvent;
+import org.jlab.clas12.analysis.ClasParticle;
+import org.jlab.clas12.analysis.ScintillatorHit;
 import org.jlab.detector.base.DetectorType;
 import org.jlab.groot.base.GStyle;
 import org.jlab.groot.data.H1F;
@@ -13,7 +19,7 @@ import org.jlab.groot.data.H2F;
 import org.jlab.groot.graphics.EmbeddedCanvas;
 import org.jlab.groot.math.F1D;
 
-public class Pi0Analyzer extends ClasAnalyzer {
+public class SandboxAnalyzer extends ClasAnalyzer {
 
 	static EmbeddedCanvas can = new EmbeddedCanvas();
 	static H1F nphe = new H1F("NPE", 50, 0, 50);
@@ -45,7 +51,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 	public static void main(String[] args) {
 		initCanvas();
 
-		Pi0Analyzer analyzer = new Pi0Analyzer();
+		SandboxAnalyzer analyzer = new SandboxAnalyzer();
 		for (int i = 0; i < args.length; i++) {
 			// analyzer.openFile("/Users/wphelps/Desktop/rga/phys2_3938.hipo");
 			analyzer.openFile(args[i]);
@@ -55,7 +61,8 @@ public class Pi0Analyzer extends ClasAnalyzer {
 		}
 
 		if(args.length == 0) {
-			String dir = "/Users/wphelps/Desktop/rga/skim11_elect_ft_kaon/";
+			//String dir = "/Users/wphelps/Desktop/rga/skim11_elect_ft_kaon/";
+			String dir = "/Users/wphelps/Desktop/rga/skim12_elec_3pi/";
 			File directory = new File(dir);
 //			analyzer.openFile(dir+"skim11_5038.hipo");
 //			analyzer.processEvents();
@@ -225,8 +232,8 @@ public class Pi0Analyzer extends ClasAnalyzer {
 	}
 
 	@Override
-	boolean processEvent(ClasEvent event) {
-		event.setUseft(true);
+	public boolean processEvent(ClasEvent event) {
+		event.setUseft(false);
 		boolean writeEvent = false;
 		if (event.getStartTime() < 0) {
 			return false;
@@ -265,7 +272,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 			}
 		}
 
-		if (event.N(22) == 2 && event.N(11) == 1 && event.N(211) == 1 && event.N(-211) == 1) {
+		if (event.N(22) >= 2 && event.N(11) == 1 && event.N(211) == 1 && event.N(-211) == 1) {
 			ClasParticle gamma1 = event.getParticle(22, 0);
 			ClasParticle gamma2 = event.getParticle(22, 1);
 			ClasParticle electron1 = event.getParticle(11, 0);

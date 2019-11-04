@@ -1,3 +1,4 @@
+package org.jlab.clas12.analysis;
 /*
  * Bank: REC::Cherenkov
  * info: Cherenkov responses for particle banks

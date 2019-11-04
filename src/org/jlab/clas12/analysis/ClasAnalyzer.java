@@ -1,13 +1,15 @@
+package org.jlab.clas12.analysis;
+
+import org.jlab.clas12.analysis.ClasEvent;
 import org.jlab.jnp.hipo4.io.HipoReader;
-import org.jlab.jnp.hipo4.io.HipoWriter;
 
 public class ClasAnalyzer {
 	private boolean writeHipoSkim = false;
 	private String inputFile;
 	private String outputFile;
 	
-	boolean processEvent(ClasEvent event) {
-		System.out.println("You should override this method in your analyzer");
+	public boolean processEvent(ClasEvent event) {
+		System.err.println("You should override the processEvent() method in your analyzer class");
 		return false;
 	}
 	

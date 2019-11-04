@@ -1,3 +1,4 @@
+package org.jlab.clas12.examples;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
@@ -5,14 +6,16 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import org.jlab.clas.physics.Vector3;
+import org.jlab.clas12.analysis.CherenkovHit;
+import org.jlab.clas12.analysis.ClasAnalyzer;
+import org.jlab.clas12.analysis.ClasEvent;
+import org.jlab.clas12.analysis.ClasParticle;
 import org.jlab.detector.base.DetectorType;
 import org.jlab.groot.base.GStyle;
 import org.jlab.groot.data.H1F;
 import org.jlab.groot.data.H2F;
-import org.jlab.groot.data.TDirectory;
 import org.jlab.groot.graphics.EmbeddedCanvas;
 
-import jdk.internal.dynalink.support.DefaultInternalObjectFilter;
 
 public class HTCCAnalyzer extends ClasAnalyzer {
 
@@ -124,7 +127,7 @@ public class HTCCAnalyzer extends ClasAnalyzer {
 	}
 
 	@Override
-	boolean processEvent(ClasEvent event) {
+	public boolean processEvent(ClasEvent event) {
 		eventCounter++;
 		
 		boolean writeEvent = false;
