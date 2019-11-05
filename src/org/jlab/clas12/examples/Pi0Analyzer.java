@@ -47,6 +47,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 
 	@Override
 	public boolean processEvent(ClasEvent event) {		
+		event.setUseft(true);
 				
 		if (event.N(22) >= 2 && event.N(11) == 1) {
 			ClasParticle gamma1 = event.getParticle(22, 0);
