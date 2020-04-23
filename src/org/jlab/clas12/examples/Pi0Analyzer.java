@@ -7,6 +7,7 @@ import org.jlab.clas.physics.LorentzVector;
 import org.jlab.clas12.analysis.ClasAnalyzer;
 import org.jlab.clas12.analysis.ClasEvent;
 import org.jlab.clas12.analysis.ClasParticle;
+import org.jlab.detector.base.DetectorType;
 import org.jlab.groot.data.H1F;
 import org.jlab.groot.graphics.EmbeddedCanvas;
 
@@ -47,7 +48,7 @@ public class Pi0Analyzer extends ClasAnalyzer {
 
 	@Override
 	public boolean processEvent(ClasEvent event) {		
-		event.setUseft(true);
+		event.setUseft(true); //Uses the RECFT::Event and RECFT::Particle banks if available.
 				
 		if (event.N(22) >= 2 && event.N(11) == 1) {
 			ClasParticle gamma1 = event.getParticle(22, 0);

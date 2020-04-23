@@ -66,6 +66,7 @@ public class ClasEventBuilder {
 				
 				if(hasFTBank){
 					particle.setPidFT(recFTBank.getInt("pid",i));
+//					System.out.println("RecFT PID:"+recFTBank.getInt("pid",i));
 					particle.setChi2pidFT(recFTBank.getFloat("chi2pid",i));
 					particle.setBetaFT(recFTBank.getFloat("beta",i));
 					particle.setStatusFT(recFTBank.getShort("status",i));

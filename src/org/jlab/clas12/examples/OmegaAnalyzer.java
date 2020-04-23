@@ -61,7 +61,7 @@ public class OmegaAnalyzer extends ClasAnalyzer {
 		OmegaAnalyzer analyzer =  new OmegaAnalyzer();
 		//analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo");
 		//analyzer.openFile("/Users/wphelps/Desktop/rga/phys/phys_3105.hipo");
-		String dir = "/Users/wphelps/Desktop/rga/v16/skim8_ep/";
+		String dir = "/Users/wphelps/Desktop/rga/skim12/";
 		File directory = new File(dir);
 		String[] filesList = directory.list();
 		for (int i = 0; i < filesList.length; i++) {

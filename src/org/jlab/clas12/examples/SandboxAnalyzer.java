@@ -62,7 +62,7 @@ public class SandboxAnalyzer extends ClasAnalyzer {
 
 		if(args.length == 0) {
 			//String dir = "/Users/wphelps/Desktop/rga/skim11_elect_ft_kaon/";
-			String dir = "/Users/wphelps/Desktop/rga/skim12_elec_3pi/";
+			String dir = "/Users/wphelps/Desktop/rga/skim12/";
 			File directory = new File(dir);
 //			analyzer.openFile(dir+"skim11_5038.hipo");
 //			analyzer.processEvents();
@@ -233,7 +233,7 @@ public class SandboxAnalyzer extends ClasAnalyzer {
 
 	@Override
 	public boolean processEvent(ClasEvent event) {
-		event.setUseft(false);
+		event.setUseft(true);
 		boolean writeEvent = false;
 		if (event.getStartTime() < 0) {
 			return false;

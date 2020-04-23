@@ -211,5 +211,13 @@ public class ClasEvent {
 			particle.setUseFT(useft);
 		}
 	}
-
+	
+	@Override
+	public String toString() {
+		String str = "";
+		for (ClasParticle particle: this.particles){
+			str += particle.toString()+"\n";
+		}
+		return str;
+	}
 }

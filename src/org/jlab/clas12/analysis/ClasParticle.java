@@ -54,9 +54,9 @@ public class ClasParticle {
 
 	public int getPid() {
 		if (useft) {
-			return pidft;
+			return this.pidft;
 		} else {
-			return pid;
+			return this.pid;
 		}
 	}
 
@@ -145,11 +145,12 @@ public class ClasParticle {
 	}
 
 	public boolean isUseFT() {
-		return useft;
+		return this.useft;
 	}
 
 	public void setUseFT(boolean useft) {
 		this.useft = useft;
+		this.setMass();
 	}
 
 	public void setPidFT(int pidft) {
@@ -205,6 +206,22 @@ public class ClasParticle {
 	
 	public void setVtFT(float vt) {
 		this.vtft = vt;
+	}
+	
+	public boolean isFT() {
+		return Math.abs(this.getStatus())/1000==1;
+	}
+
+	public boolean isFD() {
+		return Math.abs(this.getStatus())/1000==2;
+	}
+	
+	public boolean isCD() {
+		return Math.abs(this.getStatus())/1000==4;
+	}
+	
+	public String toString() {
+		return String.format("%d %4.2f", this.getPid(),this.getP4().mass());
 	}
 
 }

@@ -2,6 +2,18 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-clas"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-cli"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-geometry"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-graphics"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-hipo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-hipo4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-jaw"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-math"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-physics"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-tmd"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jnp-utils"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/groot"/>
 	<classpathentry kind="lib" path="/Users/wphelps/Documents/workspace/COATJAVA/coatjava_6.3.1/lib/clas/coat-libs-6.3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
