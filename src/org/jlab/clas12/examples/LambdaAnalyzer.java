@@ -22,7 +22,6 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 	public static void main(String args[]) {
 		hppim.setTitleX("M(p#pi^-) [GeV/c^2]");
 		hppim.setTitleY("Counts");
-		hppim.setTitle("");
 		hmissingMass.setTitleX("MM(e^-p#pi^-K^+) [GeV/c^2]");
 		hmissingMass.setTitleY("Counts");
 		hlambdamass.setTitleX("M(p#pi^-) [GeV/c^2]");
@@ -62,7 +61,7 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 		LambdaAnalyzer analyzer = new LambdaAnalyzer();
 
 		String dir = "/Volumes/External_HDD/skim11/"; 	// Skim 11 is w/electron in FT + K+ anywhere (RECFT)
-		dir = "/Volumes/External_HDD/skim14/"; 			// Skim 14 is w/electron in FD + K+ anywhere (REC)
+		//dir = "/Volumes/External_HDD/skim14/"; 			// Skim 14 is w/electron in FD + K+ anywhere (REC)
 
 		analyzer.openDirectory(dir);
 		//analyzer.openFile(dir+"skim4_5036.hipo");
@@ -71,7 +70,7 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 
 	@Override
 	public boolean processEvent(ClasEvent event) {
-		event.setUseft(false);
+		event.setUseft(true);
 
 		
 		if (event.N(2212) == 1 && event.N(11) >= 1&&event.N(321)==1&&event.N(-211)==1&&event.N(-321)==0&&event.N(211)==0&&event.N(-2212)==0) {
@@ -80,27 +79,28 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 			ClasParticle kp = event.getParticle(321, 0);
 			ClasParticle electron = event.getParticle(11, 0);
 			
-			if (kp.getP4().p()<2.0 && kp.isFD() && electron.isFD()) {
+			if (kp.getP4().p()<2.0 && kp.isFD() && electron.isFT()) {
 				LorentzVector p_proton = proton.getP4();
 				LorentzVector p_pim = pim.getP4();
 				LorentzVector p_kp = kp.getP4();
-				
-				/**************** FT Electron energy correction ****************/
-//				LorentzVector p_electron_pre_correction = electron.getP4();
-//				double p_mag = p_electron_pre_correction.p();
-//				double p_mag_corrected = 1+(-0.0004*Math.pow(p_mag,4)+0.0071*Math.pow(p_mag,3)-0.0432*Math.pow(p_mag,2)+0.1356*p_mag-0.0257)/p_mag;
-////				double p_mag_corrected = -.001*Math.pow(p_mag,3)+0.025*Math.pow(p_mag,2)-0.149*p_mag+1.377;
-////				System.out.println(p_mag_corrected);
-//				LorentzVector p_electron = new LorentzVector();
-//				p_electron.setPxPyPzM(p_electron_pre_correction.px()*p_mag_corrected, p_electron_pre_correction.py()*p_mag_corrected, p_electron_pre_correction.pz()*p_mag_corrected, PDGDatabase.getParticleMass(11));
-
 				LorentzVector p_electron = electron.getP4();
-				
 				LorentzVector beam = new LorentzVector();
 				beam.setPxPyPzM(0.0, 0.0, 10.594, PDGDatabase.getParticleMass(11));
-
 				LorentzVector target = new LorentzVector();
 				target.setPxPyPzE(0.0, 0.0, 0.0, 0.938);
+
+				
+				/**************** FT Electron energy correction ****************/
+				LorentzVector p_electron_pre_correction = electron.getP4();
+				double p_mag = p_electron_pre_correction.p();
+				double p_mag_corrected = 1+(-0.0004*Math.pow(p_mag,4)+0.0071*Math.pow(p_mag,3)-0.0432*Math.pow(p_mag,2)+0.1356*p_mag-0.0257)/p_mag;
+//				double p_mag_corrected = -.001*Math.pow(p_mag,3)+0.025*Math.pow(p_mag,2)-0.149*p_mag+1.377;
+//				System.out.println(p_mag_corrected);
+				p_electron = new LorentzVector();
+				p_electron.setPxPyPzM(p_electron_pre_correction.px()*p_mag_corrected, p_electron_pre_correction.py()*p_mag_corrected, p_electron_pre_correction.pz()*p_mag_corrected, PDGDatabase.getParticleMass(11));
+
+				
+				
 
 				LorentzVector lambda = new LorentzVector();
 				lambda.add(p_proton);
