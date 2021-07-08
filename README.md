@@ -12,6 +12,9 @@ This library is currently under development, documentation and analysis examples
   * Maven [Installation and setup guide](https://maven.apache.org/users/index.html)
 * Suggested IDE
   * IntelliJ [How to install and set up IntelliJ](https://www.jetbrains.com/help/idea/installation-guide.html)
+  * 
 ### Install
-* Clone the install
-  * git clone https://github.com/JeffersonLab/clas12-analysis.git
+
+Clone the clas12-analysis repository:
+
+    git clone https://github.com/JeffersonLab/clas12-analysis.git
