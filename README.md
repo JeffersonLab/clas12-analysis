@@ -18,3 +18,19 @@ This library is currently under development, documentation and analysis examples
 Clone the clas12-analysis repository:
 
     git clone https://github.com/JeffersonLab/clas12-analysis.git
+
+### Setup
+    
+Once you clone the project to your computer, open an IDE (We are assuming you are using IntelliJ):
+* Inside IntelliJ, click `Open` and then go to the location of where you cloned the project.
+* Click on the project and press `OK` as shown in the image below.
+![Open.png](Open.png)
+
+If a prompt appears about the project as maven, click **Trust**.
+
+Then **Right click** on the **src** folder in clas12-analysis >> go to **Mark Directory as** >> click **Source Root**.
+![SourceRoot](SourceRoot.png)
+
+After that, **right click** on the **pom.xml** file >> go to **Maven** >> then click **Reload Project**.
+![pomReload](pomReload.png)
+Now you can run the files under the examples folder and make sure to have your data file with you.
