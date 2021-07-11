@@ -16,6 +16,10 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>freehep</id>
+            <url>https://java.freehep.org/maven2</url>
+        </repository>
     </repositories>
 
     <dependencies>
