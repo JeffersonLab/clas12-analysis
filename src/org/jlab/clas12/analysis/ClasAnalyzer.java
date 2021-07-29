@@ -45,49 +45,44 @@ public class ClasAnalyzer {
 		if (this.inputDirectory != "") {
 			File directory = new File(this.inputDirectory);
 			String[] filesList = directory.list();
+			HipoReader reader = new HipoReader();
+			reader.open(this.inputDirectory + filesList[0]);
+			HipoWriter writer = null;
 			for (int i = 0; i < filesList.length; i++) {
 				try {
-					HipoReader reader = new HipoReader();
-
+					reader = new HipoReader();
 					reader.open(this.inputDirectory + filesList[i]);
-					HipoWriter writer = new HipoWriter(reader.getSchemaFactory());
-
-					if (writeHipoSkim) {
+					if (i == 0 && writeHipoSkim) {
+						writer = new HipoWriter(reader.getSchemaFactory());
 						writer.open(outputFile);
 					}
 					long eventNumber = 0;
 					int nEventsTotal = reader.getEventCount();
 					while (reader.hasNext()  && (eventNumber < limit || limit == -1)) {
-
 						ClasEvent event = new ClasEvent();
 						if (writeHipoSkim) {
-
 							Event hipoEvent = new Event();
 							reader.nextEvent(hipoEvent);
 							writer.addEvent(hipoEvent);
-
 						}
 						ClasEventBuilder.buildEvent(reader, event);
-
 						if (processEvent(event)) {
-
 							eventNumber++;
-
 						}
+//                if(eventNumber%100000==0) {
+//                   System.out.printf("Percent Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
+//                }
+					}
 
-//					 	if(eventNumber%100000==0) {
-//					 		System.out.printf("Percent Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
-//						}
-					}
-					if (writeHipoSkim) {
-						writer.close();
-					}
 					reader.close();
-
 				} catch (Exception e) {
 					System.err.println(e);
 				}
 			}
+			if (writeHipoSkim) {
+				writer.close();
+			}
+
 		} else {
 			try {
 				HipoReader reader = new HipoReader();
@@ -121,12 +116,9 @@ public class ClasAnalyzer {
 						eventNumber++;
 					}
 
-
-
 //					if (eventNumber%100000==0) {
 //						System.out.printf("Percent Complete:[%4.2f%%]\n", ((double) eventNumber / (double) nEventsTotal) * 100.0);
 //					}
-
 				}
 				if (writeHipoSkim) {
 					writer.close();
