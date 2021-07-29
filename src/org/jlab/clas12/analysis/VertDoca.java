@@ -1,56 +1,36 @@
 package org.jlab.clas12.analysis;
+
+import org.jlab.clas.physics.Vector3;
+
 /*
- * Bank:VertDoca  
+ * Bank:VertDoca
  * info:Track Cross information for Particles bank
- * Noraim Nunez (CSUDH), June 22, 2018 
+ * Noraim Nunez (CSUDH), June 22, 2018
  */
 public class VertDoca {
-    //extends to Traj. might change variable name. 
-    private float x;//position of the common vertex (cm)
-    private float y;
-    private float z; 
-    //
-    
+    //extends to Traj. might change variable name.
+    private Vector3 common = new Vector3(); // position of the common vertex (cm)
+
     private int index1;
     private int index2;
-    private float x1;//position of the first track at the DOCA point (cm)
-    private float y1;
-    private float z1; 
-    private float cx1;//direction vector of the first track at the DOCA point (cm)
-    private float cy1;
-    private float cz1; 
-    private float x2;//position of the second track at the DOCA point (cm)
-    private float y2;
-    private float z2;
-    private float cx2;//direction vector of the second track at the DOCA point (cm)
-    private float cy2;
-    private float cz2;
+
+    private final Vector3 posTrack1 = new Vector3(); //position of the first track at the DOCA point (cm)
+
+    private final Vector3 directTrack1 = new Vector3(); //direction vector of the first track at the DOCA point (cm)
+
+    private final Vector3 posTrack2 = new Vector3(); //position of the second track at the DOCA point (cm)
+
+    private final Vector3 directTrack2 = new Vector3(); //direction vector of the second track at the DOCA point (cm)
+
     private float r; //distance between two tracks (cm)
 
-    public float getX() {
-        return x;
+    public Vector3 getCommon() {
+        return common;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public Vector3 getPosTrack1() {
+        return posTrack1;
     }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getZ() {
-        return z;
-    }
-
-    public void setZ(float z) {
-        this.z = z;
-    }
-
     public int getIndex1() {
         return index1;
     }
@@ -67,100 +47,16 @@ public class VertDoca {
         this.index2 = index2;
     }
 
-    public float getX1() {
-        return x1;
+    public Vector3 getDirectTrack1() {
+        return directTrack1;
     }
 
-    public void setX1(float x1) {
-        this.x1 = x1;
+    public Vector3 getPosTrack2() {
+        return posTrack2;
     }
 
-    public float getY1() {
-        return y1;
-    }
-
-    public void setY1(float y1) {
-        this.y1 = y1;
-    }
-
-    public float getZ1() {
-        return z1;
-    }
-
-    public void setZ1(float z1) {
-        this.z1 = z1;
-    }
-
-    public float getCx1() {
-        return cx1;
-    }
-
-    public void setCx1(float cx1) {
-        this.cx1 = cx1;
-    }
-
-    public float getCy1() {
-        return cy1;
-    }
-
-    public void setCy1(float cy1) {
-        this.cy1 = cy1;
-    }
-
-    public float getCz1() {
-        return cz1;
-    }
-
-    public void setCz1(float cz1) {
-        this.cz1 = cz1;
-    }
-
-    public float getX2() {
-        return x2;
-    }
-
-    public void setX2(float x2) {
-        this.x2 = x2;
-    }
-
-    public float getY2() {
-        return y2;
-    }
-
-    public void setY2(float y2) {
-        this.y2 = y2;
-    }
-
-    public float getZ2() {
-        return z2;
-    }
-
-    public void setZ2(float z2) {
-        this.z2 = z2;
-    }
-
-    public float getCx2() {
-        return cx2;
-    }
-
-    public void setCx2(float cx2) {
-        this.cx2 = cx2;
-    }
-
-    public float getCy2() {
-        return cy2;
-    }
-
-    public void setCy2(float cy2) {
-        this.cy2 = cy2;
-    }
-
-    public float getCz2() {
-        return cz2;
-    }
-
-    public void setCz2(float cz2) {
-        this.cz2 = cz2;
+    public Vector3 getDirectTrack2() {
+        return directTrack2;
     }
 
     public float getR() {
@@ -169,6 +65,5 @@ public class VertDoca {
 
     public void setR(float r) {
         this.r = r;
-    }      
     }
-
+}
