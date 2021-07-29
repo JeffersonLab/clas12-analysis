@@ -49,12 +49,10 @@ public class Pi0Analyzer extends ClasAnalyzer {
 //		analyzer.openFile(dir+"out_lam_00046.rec.hipo"); //Can open single file
 //		analyzer.openDirectory(dir);  //Or all hipo files in a directory;
 
-//		analyzer.setHipoOutputFile(out + "skimTest4.hipo");
-
 		analyzer.openFile(out + "skimTest6.hipo");
 //		analyzer.setHipoOutputFile(out + "skimTest6.hipo");
 
-		analyzer.processEvents(); //Can also set an event limit with an integer argument
+		analyzer.processEvents(10); //Can also set an event limit with an integer argument
 
 	}
 

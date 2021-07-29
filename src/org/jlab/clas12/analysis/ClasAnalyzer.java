@@ -69,7 +69,7 @@ public class ClasAnalyzer {
 						}
 						ClasEventBuilder.buildEvent(reader, event);
 
-						if (processEvent(event) && writeHipoSkim) {
+						if (processEvent(event)) {
 
 							eventNumber++;
 
@@ -116,7 +116,7 @@ public class ClasAnalyzer {
 
 
 
-					if (processEvent(event) && writeHipoSkim) {// writer.writeEvent(hipoEvent);
+					if (processEvent(event)) {// writer.writeEvent(hipoEvent);
 
 						eventNumber++;
 					}
