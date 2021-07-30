@@ -10,10 +10,7 @@ import org.jlab.jnp.hipo4.io.HipoReader;
 public class ClasEventBuilder {
 
 
-	public static void buildEvent(HipoReader reader, ClasEvent event) {
-		SchemaFactory factory = reader.getSchemaFactory();
-		Event hipoEvent = new Event();
-		reader.nextEvent(hipoEvent);
+	public static void buildEvent(Event hipoEvent, SchemaFactory factory, ClasEvent event) {
 		if (hipoEvent.hasBank(factory.getSchema("REC::Event"))) {
 			boolean hasRECFTEvent = hipoEvent.hasBank(factory.getSchema("RECFT::Event"));
 			Bank recfteventbank = new Bank(factory.getSchema("RECFT::Event"));
