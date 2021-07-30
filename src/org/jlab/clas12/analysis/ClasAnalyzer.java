@@ -57,16 +57,20 @@ public class ClasAnalyzer {
                 }
             });
             HipoWriter writer = null;
+            long eventNumber = 0;
             for (int i = 0; i < filesList.length; i++) {
                 try {
+                    if (eventNumber > limit){
+                        break;
+                    }
                     HipoReader reader = new HipoReader();
                     reader.open(this.inputDirectory + filesList[i]);
+                    reader.setTags(0);
                     SchemaFactory factory = reader.getSchemaFactory();
                     if (i == 0 && writeHipoSkim) {
                         writer = new HipoWriter(factory);
                         writer.open(outputFile);
                     }
-                    long eventNumber = 0;
                     int nEventsTotal = reader.getEventCount();
                     while (reader.hasNext() && (eventNumber < limit || limit == -1)) {
                         ClasEvent event = new ClasEvent();
@@ -78,11 +82,11 @@ public class ClasAnalyzer {
                             if (writeHipoSkim) {
                                 writer.addEvent(hipoEvent);
                             }
-                            eventNumber++;
                         }
                         if (verbosity >= 2 && eventNumber % 100000 == 0) {
                             System.out.printf("Percent Complete:[%4.2f%%]\n", ((double) eventNumber / (double) nEventsTotal) * 100.0);
                         }
+                        eventNumber++;
                     }
 
                     reader.close();
@@ -101,12 +105,12 @@ public class ClasAnalyzer {
             try {
                 HipoReader reader = new HipoReader();
                 reader.open(inputFile);
+                reader.setTags(0);
                 SchemaFactory factory = reader.getSchemaFactory();
                 HipoWriter writer = new HipoWriter(factory);
                 if (writeHipoSkim) {
                     writer.open(outputFile);
                 }
-                reader.setTags(0);
 
                 long eventNumber = 0;
                 int nEventsTotal = reader.getEventCount();

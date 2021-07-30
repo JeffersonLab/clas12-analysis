@@ -65,8 +65,10 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 		String dir = "/Volumes/External_HDD/skim11/"; 	// Skim 11 is w/electron in FT + K+ anywhere (RECFT)
 		dir = "/Users/wphelps/Desktop/data/test_clas12_analyzer/"; 			// Skim 14 is w/electron in FD + K+ anywhere (REC)
 
-		analyzer.openDirectory(dir);
+//		analyzer.openDirectory(dir);
 		analyzer.openFile(dir+"output.hipo");
+//		analyzer.setHipoOutputFile(dir+"output.hipo");
+//		analyzer.processEvents(100000);
 		analyzer.processEvents();
 		System.out.println("Total # of events written:"+counter1);
 		System.out.println("Total # of events read:"+counterTotal);
