@@ -44,6 +44,7 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
 
@@ -51,13 +52,9 @@
                 <artifactId>maven-assembly-plugin</artifactId>
 
                 <configuration>
-
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <manifestFile>src/org/jlab/clas12/resources/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
 
                 </configuration>
                 <executions>
