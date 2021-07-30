@@ -22,6 +22,8 @@ public class ClasEvent {
 
 	ArrayList<ClasParticle> particles = new ArrayList<ClasParticle>();
 
+	ArrayList<VertDoca> docas = new ArrayList<>();
+
 	public long getEventNumber() {
 		return eventNumber;
 	}
@@ -44,6 +46,14 @@ public class ClasEvent {
 
 	public void setParticles(ArrayList<ClasParticle> particles) {
 		this.particles = particles;
+	}
+
+	public ArrayList<VertDoca> getDOCAS() {
+		return docas;
+	}
+
+	public void setDOCAS(ArrayList<VertDoca> docas) {
+		this.docas = docas;
 	}
 
 	public float getEventTime() {
@@ -92,7 +102,7 @@ public class ClasEvent {
 			triggerBits[i] = (tRG & (1 << i)) != 0;
 		}
 	}
-	
+
 	public boolean isTrigBit(int bit) {
 		return triggerBits[bit];
 	}
@@ -211,7 +221,7 @@ public class ClasEvent {
 			particle.setUseFT(useft);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		String str = "";
@@ -220,4 +230,28 @@ public class ClasEvent {
 		}
 		return str;
 	}
+
+	// Given two particles return an instance of VertDOCA
+	public VertDoca getDOCA(ClasParticle p1, ClasParticle p2) {
+		// p1Index = 1
+		// p2Index = 2
+		// In VertDoca object
+		// d.getIndex1() returns 2
+		// d.getIndex2() returns 1
+		int p1Index = particles.indexOf(p1);
+		int p2Index = particles.indexOf(p2);
+
+		for (VertDoca d : docas) {
+			if (d.getIndex1() == p1Index && d.getIndex2() == p2Index) {
+				return d;
+			} else if (d.getIndex1() == p2Index && d.getIndex2() == p1Index) {
+				return d;
+			} else {
+				return null;
+			}
+		}
+		return null;
+	}
+
+
 }

@@ -12,7 +12,23 @@ This library is currently under development, documentation and analysis examples
   * Maven [Installation and setup guide](https://maven.apache.org/users/index.html)
 * Suggested IDE
   * IntelliJ [How to install and set up IntelliJ](https://www.jetbrains.com/help/idea/installation-guide.html)
-  
+
+### Release Option
+ 
+If you just want to install the release jar rather than clone the repo:
+* Click on `Releases`
+* Download the most recent release jar of the clas12 analysis.
+* Open an IDE
+* Create a new project or use an existing project
+* Then under project structure, go to the libraries section.
+![AddingtoLibraryJarDepend](image_folder/AddingtoLibraryJarDepend.png)
+* click the `+` and go to location of the downloaded jar release. 
+* Then click `ok` to the following prompts
+* Finally click `Apply`
+* The jar should now be visible in the external libraries
+![ExternalLibAdded](image_folder/ExternalLibAdded.png)
+
+
 ### Install
 
 Clone the clas12-analysis repository:

@@ -3,7 +3,10 @@ package org.jlab.clas12.analysis;
 import java.io.File;
 
 import org.jlab.clas12.analysis.ClasEvent;
+import org.jlab.jnp.hipo.data.HipoEvent;
+import org.jlab.jnp.hipo4.data.Event;
 import org.jlab.jnp.hipo4.io.HipoReader;
+import org.jlab.jnp.hipo4.io.HipoWriter;
 
 public class ClasAnalyzer {
 	private boolean writeHipoSkim = false;
@@ -37,59 +40,103 @@ public class ClasAnalyzer {
 	}
 
 	public ClasAnalyzer processEvents(int limit) {
-		// HipoReader reader = new HipoReader();
+//		 HipoReader reader = new HipoReader();
 
 		if (this.inputDirectory != "") {
 			File directory = new File(this.inputDirectory);
 			String[] filesList = directory.list();
+			HipoReader reader = new HipoReader();
+			reader.open(this.inputDirectory + filesList[0]);
+			HipoWriter writer = null;
 			for (int i = 0; i < filesList.length; i++) {
 				try {
-					HipoReader reader = new HipoReader();
+					reader = new HipoReader();
 					reader.open(this.inputDirectory + filesList[i]);
+					if (i == 0 && writeHipoSkim) {
+						writer = new HipoWriter(reader.getSchemaFactory());
+						writer.open(outputFile);
+					}
 					long eventNumber = 0;
 					int nEventsTotal = reader.getEventCount();
-					while (reader.hasNext() == true && (eventNumber < limit || limit == -1)) {
-
+					while (reader.hasNext()  && (eventNumber < limit || limit == -1)) {
 						ClasEvent event = new ClasEvent();
+						if (writeHipoSkim) {
+							Event hipoEvent = new Event();
+							reader.nextEvent(hipoEvent);
+							writer.addEvent(hipoEvent);
+						}
 						ClasEventBuilder.buildEvent(reader, event);
-						if (processEvent(event) && writeHipoSkim) // writer.writeEvent(hipoEvent);
+						if (processEvent(event)) {
 							eventNumber++;
-						// if(eventNumber%100000==0) System.out.printf("Percent
-						// Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
-
+						}
+//                if(eventNumber%100000==0) {
+//                   System.out.printf("Percent Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
+//                }
 					}
+
 					reader.close();
 				} catch (Exception e) {
 					System.err.println(e);
 				}
 			}
+			if (writeHipoSkim) {
+				writer.close();
+			}
+
 		} else {
 			try {
 				HipoReader reader = new HipoReader();
 				reader.open(inputFile);
+				HipoWriter writer = new HipoWriter(reader.getSchemaFactory());
+				if (writeHipoSkim) {
+					writer.open(outputFile);
+				}
 				reader.setTags(0);
+
 				long eventNumber = 0;
 				int nEventsTotal = reader.getEventCount();
-				while (reader.hasNext() == true && (eventNumber < limit || limit == -1)) {
+//				writer.setMaxEvents(nEventsTotal);
 
+				while (reader.hasNext() && (eventNumber < limit || limit == -1)) {
 					ClasEvent event = new ClasEvent();
-					ClasEventBuilder.buildEvent(reader, event);
-					if (processEvent(event) && writeHipoSkim) // writer.writeEvent(hipoEvent);
-						eventNumber++;
-					// if(eventNumber%100000==0) System.out.printf("Percent
-					// Complete:[%4.2f%%]\n",((double)eventNumber/(double)nEventsTotal)*100.0);
+					if (writeHipoSkim) {
 
+						Event hipoEvent = new Event();
+						reader.nextEvent(hipoEvent);
+						writer.addEvent(hipoEvent);
+
+					}
+					ClasEventBuilder.buildEvent(reader, event);
+
+
+
+
+					if (processEvent(event)) {// writer.writeEvent(hipoEvent);
+
+						eventNumber++;
+					}
+
+//					if (eventNumber%100000==0) {
+//						System.out.printf("Percent Complete:[%4.2f%%]\n", ((double) eventNumber / (double) nEventsTotal) * 100.0);
+//					}
 				}
+				if (writeHipoSkim) {
+					writer.close();
+				}
+
 				reader.close();
+
 			} catch (Exception e) {
 				System.err.println(e);
 			}
 		}
 
-		// HipoWriter writer = reader.createWriter();
-		// writer.setCompressionType(1);
-		// if(writeHipoSkim) {
-		// writer.open(outputFile);
+
+
+//		 HipoWriter writer = reader.createWriter();
+//		 writer.setCompressionType(1);
+//		 if(writeHipoSkim) {
+//		 writer.open(outputFile);
 		// }
 
 		return this;
