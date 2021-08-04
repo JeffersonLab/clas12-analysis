@@ -4,7 +4,7 @@
 
     <groupId>org.jlab.clas12</groupId>
     <artifactId>clas12-analysis</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -44,6 +44,7 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
 
@@ -51,13 +52,9 @@
                 <artifactId>maven-assembly-plugin</artifactId>
 
                 <configuration>
-
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <manifestFile>src/org/jlab/clas12/resources/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
 
                 </configuration>
                 <executions>

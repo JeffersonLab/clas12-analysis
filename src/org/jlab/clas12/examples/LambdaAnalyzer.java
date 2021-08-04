@@ -18,6 +18,8 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 	static H1F hmissingMass = new H1F("missingMass", 100, -1.5, 1.5);
 	static H1F missingMassSelection = new H1F("missingMassSelection", 100, -1.5, 1.5);
 	static H1F hmissingLambda =  new H1F("MissingLambda",200,0.9,2.0);
+	static int counter1 = 0;
+	static int counterTotal = 0;
 
 	public static void main(String args[]) {
 		hppim.setTitleX("M(p#pi^-) [GeV/c^2]");
@@ -61,15 +63,20 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 		LambdaAnalyzer analyzer = new LambdaAnalyzer();
 
 		String dir = "/Volumes/External_HDD/skim11/"; 	// Skim 11 is w/electron in FT + K+ anywhere (RECFT)
-		dir = "/Volumes/External_HDD/skim14/"; 			// Skim 14 is w/electron in FD + K+ anywhere (REC)
+		dir = "/Users/wphelps/Desktop/data/test_clas12_analyzer/"; 			// Skim 14 is w/electron in FD + K+ anywhere (REC)
 
-		analyzer.openDirectory(dir);
-		//analyzer.openFile(dir+"skim4_5036.hipo");
+//		analyzer.openDirectory(dir);
+		analyzer.openFile(dir+"output.hipo");
+//		analyzer.setHipoOutputFile(dir+"output.hipo");
+//		analyzer.processEvents(100000);
 		analyzer.processEvents();
+		System.out.println("Total # of events written:"+counter1);
+		System.out.println("Total # of events read:"+counterTotal);
 	}
 
 	@Override
 	public boolean processEvent(ClasEvent event) {
+		counterTotal += 1;
 		event.setUseft(false); // Selects whether to use the RECFT bank or REC bank
 
 		
@@ -140,6 +147,8 @@ public class LambdaAnalyzer extends ClasAnalyzer {
 						hlambdamass.fill(lambda.mass());
 					}
 				}
+				counter1 += 1;
+				return true;
 			}
 		}
 		return false;
