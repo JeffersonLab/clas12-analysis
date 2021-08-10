@@ -1,11 +1,20 @@
 package org.jlab.clas12.analysis;
 
 public class ForwardTaggerHit extends DetectorHit{
+	private int layer;
 	private float energy;
 	private float dx;
 	private float dy;
 	private float radius;
 	private short size;
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
 
 	public float getEnergy() {
 		return energy;
