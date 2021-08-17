@@ -21,19 +21,42 @@ public class ClasEventBuilder {
 //		event.setEventNumber(bank.getInt("NEVENT",0));
 //		event.setEventTime(bank.getFloat("EVNTime",0));
 //		event.setType((int) bank.getByte("TYPE",0));
-//		event.setEventCategory(bank.getShort("EvCAT",0));
-//		event.setNPGP(bank.getShort("NPGP",0));
-//		event.setTRG(bank.getLong("TRG",0));
-//		event.setBcg(bank.getFloat("BCG",0));
-//		event.setClock(bank.getDouble("LT",0));
-			event.setStartTime(bank.getFloat("startTime", 0));
-//		event.setRFTime(bank.getFloat("RFTime",0));
-//		event.setHelicity((int) bank.getByte("Helic",0));
-//		event.setProcessingTime(bank.getFloat("PTIME",0));
-			if (hasRECFTEvent) {
-				hipoEvent.read(recfteventbank);
-				event.setStartTimeFT(recfteventbank.getFloat("startTime", 0));
+			if (hipoEvent.hasBank(factory.getSchema("RUN::config"))) {
+				Bank runBank = new Bank(factory.getSchema("RUN::config"));
+				hipoEvent.read(runBank);
+				for (int i = 0; i < runBank.getRows(); ++i) {
+					event.setRunNumber(runBank.getInt("run", i));
+					event.setEventNumber(runBank.getInt("event", i));
+					event.setUnixTime(runBank.getInt("unixtime", i));
+					event.setTRG(runBank.getLong("trigger", i));
+					event.setType((int) runBank.getByte("type", i));
+					event.setMode((int) runBank.getByte("mode", i));
+					event.setTorus(runBank.getFloat("torus", i));
+					event.setSolenoid(runBank.getFloat("solenoid", i));
+//					System.out.println(event.getSolenoid());
+					System.out.println("Run Config exists!");
+				}
 			}
+			for (int i = 0; i < bank.getRows(); ++i) {
+				event.setEventCategory(bank.getLong("category", i));
+//		event.setNPGP(bank.getShort("NPGP",0));
+				event.setTopology(bank.getLong("topology", i));
+				event.setBcg(bank.getFloat("beamCharge", i));
+				event.setClock(bank.getDouble("liveTime", i));
+				event.setStartTime(bank.getFloat("startTime", i));
+				event.setRFTime(bank.getFloat("RFTime", i));
+				event.setHelicity((int) bank.getByte("helicity", i));
+				event.setProcessingTime(bank.getFloat("procTime", i));
+//				System.out.println(factory.hasSchema("RUN::config"));
+
+				if (hasRECFTEvent) {
+					hipoEvent.read(recfteventbank);
+					event.setStartTimeFT(recfteventbank.getFloat("startTime", i));
+					event.setEventCategoryFT(recfteventbank.getLong("category", i));
+				}
+
+			}
+
 			boolean hasFTBank = hipoEvent.hasBank(factory.getSchema("RECFT::Particle"));
 
 			if (hipoEvent.hasBank(factory.getSchema("REC::Particle"))) {
@@ -43,8 +66,10 @@ public class ClasEventBuilder {
 				if (hasFTBank) {
 					hipoEvent.read(recFTBank);
 				}
+
 				for (int i = 0; i < partBank.getRows(); i++) {
 					ClasParticle particle = new ClasParticle();
+//					System.out.println(factory.hasSchema("RUN::config"));
 					//int charge = ((int) partBank.getInt("charge",i));
 					//System.out.println("PID:"+partBank.getInt("pid",i)+"Charge="+charge+" i="+i+" length:"+partBank.getRows());
 					particle.setPid(partBank.getInt("pid", i));
@@ -53,6 +78,7 @@ public class ClasEventBuilder {
 					particle.setBeta(partBank.getFloat("beta", i));
 					particle.setChi2pid(partBank.getFloat("chi2pid", i));
 					particle.setStatus(partBank.getShort("status", i));
+					particle.setVt(partBank.getFloat("vt", i));
 
 					double vx = partBank.getFloat("vx", i);
 					double vy = partBank.getFloat("vy", i);
@@ -68,6 +94,7 @@ public class ClasEventBuilder {
 						particle.setChi2pidFT(recFTBank.getFloat("chi2pid", i));
 						particle.setBetaFT(recFTBank.getFloat("beta", i));
 						particle.setStatusFT(recFTBank.getShort("status", i));
+						particle.setVtFT(recFTBank.getFloat("vt", i));
 //					System.out.println("PID:"+recFTBank.getInt("pid",i)+"Beta="+recFTBank.getFloat("beta",i)+" chi2="+recFTBank.getFloat("chi2pid",i)+" status:"+recFTBank.getShort("status",i));
 
 					}
@@ -100,7 +127,9 @@ public class ClasEventBuilder {
 				hipoEvent.read(cherenkovBank);
 				for (int i = 0; i < cherenkovBank.getRows(); i++) {
 					CherenkovHit hit = new CherenkovHit();
+//					System.out.println(factory.hasSchema("RUN::config"));
 					hit.setIndex(cherenkovBank.getShort("index", i));
+//					System.out.println(hit.getIndex());
 					hit.setPindex(cherenkovBank.getShort("pindex", i));
 					hit.setDetector(cherenkovBank.getByte("detector", i));
 					hit.setSector(cherenkovBank.getByte("sector", i));
@@ -122,6 +151,7 @@ public class ClasEventBuilder {
 				for (int i = 0; i < calorimeterBank.getRows(); i++) {
 					CalorimeterHit hit = new CalorimeterHit();
 					hit.setIndex(calorimeterBank.getShort("index", i));
+//					System.out.println(hit.getIndex());
 					hit.setPindex(calorimeterBank.getShort("pindex", i));
 					hit.setDetector(calorimeterBank.getByte("detector", i));
 					hit.setSector(calorimeterBank.getByte("sector", i));
@@ -324,6 +354,32 @@ public class ClasEventBuilder {
 				 * hit.getDetector()), hit); } }
 				 */
 
+			}
+			if (hipoEvent.hasBank(factory.getSchema("REC::ForwardTagger"))) {
+				Bank forTagBank = new Bank(factory.getSchema("REC::ForwardTagger"));
+				hipoEvent.read(forTagBank);
+				for (int i=0; i < forTagBank.getRows(); ++i) {
+					ForwardTaggerHit hit = new ForwardTaggerHit();
+					hit.setIndex(forTagBank.getShort("index", i));
+					hit.setPindex(forTagBank.getShort("pindex", i));
+					hit.setDetector(forTagBank.getByte("detector", i));
+					hit.setLayer(forTagBank.getByte("layer", i));
+					hit.setEnergy(forTagBank.getFloat("energy", i));
+					hit.setTime(forTagBank.getFloat("time", i));
+					hit.setPath(forTagBank.getFloat("path", i));
+					hit.setChi2(forTagBank.getFloat("chi2", i));
+					hit.setX(forTagBank.getFloat("x", i));
+					hit.setY(forTagBank.getFloat("y", i));
+					hit.setZ(forTagBank.getFloat("z", i));
+					hit.setDx(forTagBank.getFloat("dx", i));
+					hit.setDy(forTagBank.getFloat("dy", i));
+					hit.setRadius(forTagBank.getFloat("radius", i));
+					hit.setSize(forTagBank.getShort("size", i));
+					hit.setStatus(forTagBank.getShort("status", i));
+					event.getParticles().get(hit.getPindex()).getHits().put(DetectorType.getType(hit.getDetector()), hit);
+//					System.out.println("ForTag exists");
+
+				}
 			}
 		}
 	}
