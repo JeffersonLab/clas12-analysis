@@ -60,7 +60,7 @@ public class ClasAnalyzer {
             long eventNumber = 0;
             for (int i = 0; i < filesList.length; i++) {
                 try {
-                    if (eventNumber > limit){
+                    if (eventNumber > limit && limit != -1){
                         break;
                     }
                     HipoReader reader = new HipoReader();
